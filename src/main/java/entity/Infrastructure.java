@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
@@ -23,6 +22,7 @@ public class Infrastructure implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "infrastructures")
-    private List<Locality> localities;
+    @ManyToOne
+    @JoinColumn(name = "locality_id")
+    private Locality locality;
 }

@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `locality_management`.`locality`
 (
   `id_locality` INT         NOT NULL AUTO_INCREMENT,
   `name`        VARCHAR(45) NOT NULL,
-  `population`  INT(8)      NOT NULL,
+  `population`  INT         NOT NULL,
   `user_id`     INT         NOT NULL,
   PRIMARY KEY (`id_locality`),
   CONSTRAINT `fk_locality_user`
@@ -40,30 +40,15 @@ CREATE TABLE IF NOT EXISTS `locality_management`.`locality`
       ON UPDATE NO ACTION
 );
 
-
 DROP TABLE IF EXISTS `locality_management`.`infrastructure`;
 CREATE TABLE IF NOT EXISTS `locality_management`.`infrastructure`
 (
   `id_infrastructure` INT         NOT NULL AUTO_INCREMENT,
   `name`              VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_infrastructure`)
-);
-
-
-DROP TABLE IF EXISTS `locality_management`.`infrastructure_locality`;
-CREATE TABLE IF NOT EXISTS `locality_management`.`infrastructure_locality`
-(
-  `id_infr_local`     INT NOT NULL AUTO_INCREMENT,
-  `id_infrastructure` INT NOT NULL,
-  `id_locality`       INT NOT NULL,
-  PRIMARY KEY (`id_infr_local`),
-  CONSTRAINT `fk_infrastructure_locality_id`
-    FOREIGN KEY (`id_infrastructure`)
-      REFERENCES `locality_management`.`infrastructure` (`id_infrastructure`)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
-  CONSTRAINT `fk_locality_infrastructure_id`
-    FOREIGN KEY (`id_locality`)
+  `locality_id`       INT         NOT NULL,
+  PRIMARY KEY (`id_infrastructure`),
+  CONSTRAINT `fk_infrastructure_locality`
+    FOREIGN KEY (`locality_id`)
       REFERENCES `locality_management`.`locality` (`id_locality`)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION

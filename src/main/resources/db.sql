@@ -10,6 +10,13 @@ CREATE TABLE IF NOT EXISTS `locality_management`.`role`
   PRIMARY KEY (`id_role`)
 );
 
+insert into locality_management.role (role)
+values ('admin');
+insert into locality_management.role (role)
+values ('user');
+insert into locality_management.role (role)
+values ('chairmen');
+
 DROP TABLE IF EXISTS `locality_management`.`user`;
 CREATE TABLE IF NOT EXISTS `locality_management`.`user`
 (
@@ -24,6 +31,14 @@ CREATE TABLE IF NOT EXISTS `locality_management`.`user`
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
+
+insert into locality_management.user (username, password, role_id)
+values ('admin', 'admin', 1);
+insert into locality_management.user (username, password, role_id)
+values ('user', 'user', 2);
+insert into locality_management.user (username, password, role_id)
+values ('chairmen', 'chairmen', 3);
+
 
 DROP TABLE IF EXISTS `locality_management`.`locality`;
 CREATE TABLE IF NOT EXISTS `locality_management`.`locality`

@@ -12,5 +12,5 @@ public interface DAO<T> {
 
     boolean delete(T t);
 
-    List<T> getAll(Class<T> type);
+    List<T> getAll();
 }

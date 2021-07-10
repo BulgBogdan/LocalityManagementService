@@ -55,6 +55,13 @@ CREATE TABLE IF NOT EXISTS `locality_management`.`locality`
       ON UPDATE NO ACTION
 );
 
+insert into locality_management.locality (name, population, user_id)
+values ('minsk', 1000000, 3);
+insert into locality_management.locality (name, population, user_id)
+values ('gomel', 500000, 3);
+insert into locality_management.locality (name, population, user_id)
+values ('mogilev', 400000, 3);
+
 DROP TABLE IF EXISTS `locality_management`.`infrastructure`;
 CREATE TABLE IF NOT EXISTS `locality_management`.`infrastructure`
 (
@@ -68,3 +75,24 @@ CREATE TABLE IF NOT EXISTS `locality_management`.`infrastructure`
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
+
+insert into locality_management.infrastructure (name, locality_id)
+values ('school N10 minsk', 1);
+insert into locality_management.infrastructure (name, locality_id)
+values ('sad N20 minsk', 1);
+insert into locality_management.infrastructure (name, locality_id)
+values ('hospital minsk', 1);
+
+insert into locality_management.infrastructure (name, locality_id)
+values ('school N3 gomel', 2);
+insert into locality_management.infrastructure (name, locality_id)
+values ('sad N8 gomel', 2);
+insert into locality_management.infrastructure (name, locality_id)
+values ('hospital gomel', 2);
+
+insert into locality_management.infrastructure (name, locality_id)
+values ('school mogilev', 3);
+insert into locality_management.infrastructure (name, locality_id)
+values ('sad mogilev', 3);
+insert into locality_management.infrastructure (name, locality_id)
+values ('hospital mogilev', 2);

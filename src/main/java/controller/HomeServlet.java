@@ -68,7 +68,9 @@ public class HomeServlet extends HttpServlet {
         if (Objects.nonNull(city)) {
             req.setAttribute("nameCity", city);
         } else {
-            req.setAttribute("nameCity", getCities(chairmen).get(0));
+            if (!getCities(chairmen).isEmpty()) {
+                req.setAttribute("nameCity", getCities(chairmen).get(0));
+            }
         }
         if (Objects.isNull(chairmen)) {
             req.setAttribute("nameChairmen", getChairmens().get(0));
@@ -77,6 +79,7 @@ public class HomeServlet extends HttpServlet {
             req.setAttribute("cities", getCities(chairmen));
             req.setAttribute("nameChairmen", chairmen);
         }
+        req.setAttribute("chairmens", getChairmens());
         req.getRequestDispatcher("home.jsp").forward(req, resp);
     }
 }

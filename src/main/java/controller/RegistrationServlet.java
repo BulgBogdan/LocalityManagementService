@@ -47,7 +47,7 @@ public class RegistrationServlet extends HttpServlet {
             userDAO.create(user);
             HttpSession session = req.getSession();
             session.setAttribute("userSession", login);
-            req.getRequestDispatcher("home.jsp").forward(req, resp);
+            resp.sendRedirect("/home");
         } else {
             req.setAttribute("passwordError", "Пароли не совпадают");
             req.getRequestDispatcher("registration.jsp").forward(req, resp);

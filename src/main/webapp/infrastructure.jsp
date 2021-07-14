@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row col-md-12 col-md-offset-0">
             <h6 class="text-center">Инфрастуктура ${cityName}:</h6>
-            <table class="table table-striped">
+            <table class="table table-striped border-info">
                 <thead style="background-color: #77a4ff">
                 <tr>
                     <th class="text-center">Название</th>
@@ -74,8 +74,11 @@
                class="btn btn-primary btn-xs pull-right"><b>+</b> Добавить инфраструктуру</a>
         </c:if>
     </div>
+    <div class="text-center">
+        <p style="color: green">${confirmData}</p>
+    </div>
     <br>
-    <div id="register-link" class="text-cent">
+    <div id="register-link" class="text-center">
         <br>
         <a href="#" onclick="history.back();">Вернуться назад</a>
     </div>

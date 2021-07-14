@@ -5,6 +5,7 @@ import entity.Locality;
 import repository.LocalityDAOImpl;
 import service.LocalityDAO;
 import util.CheckChairmen;
+import util.CheckConfirmData;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +24,7 @@ public class InfrastructureServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cityName = req.getParameter("cityName");
         List<Infrastructure> infrastructures = localityDAO.getByCityName(cityName).getInfrastructures();
+        req.setAttribute("confirmData", CheckConfirmData.getAttributeParam(req));
         req.setAttribute("cityName", cityName);
         req.setAttribute("infrastructures", infrastructures);
         req.setAttribute("isChairmen", CheckChairmen.isChairmen(req.getSession()));

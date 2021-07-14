@@ -30,7 +30,6 @@
                         </div>
 
                         <div class="form-group">
-                            <p style="color: green">${confirmEdit}</p>
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Изменить данные">
                         </div>
 

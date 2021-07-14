@@ -79,8 +79,11 @@
                 пункт</a>
         </c:if>
     </div>
+    <div class="text-center">
+        <p style="color: green">${confirmData}</p>
+    </div>
     <br>
-    <div id="register-link" class="text-cent">
+    <div id="register-link" class="text-center">
         <br>
         <a href="#" onclick="history.back();">Вернуться назад</a>
     </div>

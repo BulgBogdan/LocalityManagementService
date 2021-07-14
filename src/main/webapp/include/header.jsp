@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-3 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="home">Главная</a>
+                <a class="nav-link" href="/home">Главная</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"></a>
@@ -25,11 +25,11 @@
         </ul>
         <ul class="navbar-nav my-2 my-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="cabinet"><span class="sr-only">(current)</span>Личный кабинет</a>
+                <a class="nav-link" href="/cabinet"><span class="sr-only">(current)</span>Личный кабинет</a>
             </li>
             <li class="nav-item active">
                 <a class="btn btn-sm btn-outline-danger" title="Выход из профиля"
-                   href="logout">Выход</a>
+                   href="/logout">Выход</a>
             </li>
         </ul>
 

@@ -39,7 +39,7 @@
                         </div>
 
                         <div id="register-link" class="text-left">
-                            <a href="/locality?chairmenName=${chairmenName}">Вернуться назад</a>
+                            <a href="/locality?nameChairmen=${nameChairmen}">Вернуться назад</a>
                         </div>
                     </form>
                 </div>

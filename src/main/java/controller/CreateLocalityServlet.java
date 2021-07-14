@@ -33,15 +33,15 @@ public class CreateLocalityServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
-        String populatiion = req.getParameter("population");
+        String population = req.getParameter("population");
         User user = userDAO.getByUsername(nameChairmen);
         Locality locality = Locality.builder()
                 .name(name)
-                .population(Integer.parseInt(populatiion))
+                .population(Integer.parseInt(population))
                 .user(user)
                 .build();
         localityDAO.create(locality);
         req.setAttribute("nameChairmen", nameChairmen);
-        resp.sendRedirect("/locality?nameChairmen=" + nameChairmen);
+        resp.sendRedirect("/locality?nameChairmen=" + nameChairmen + "&confirmCreate=true");
     }
 }

@@ -40,12 +40,11 @@
                         </div>
 
                         <div class="form-group">
-                            <p style="color: green">${confirmEdit}</p>
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Изменить данные">
                         </div>
 
                         <div id="register-link" class="text-left">
-                            <a href="/locality?nameChairmen=${nameChairmen}">Вернуться назад</a>
+                            <a href="/locality?nameChairmen=${chairmenName}">Вернуться назад</a>
                         </div>
                     </form>
                 </div>

@@ -22,6 +22,6 @@ public class DeleteLocalityServlet extends HttpServlet {
         Locality locality = localityDAO.getById(Integer.parseInt(localityID));
         String userSession = (String) req.getSession().getAttribute("userSession");
         localityDAO.delete(locality);
-        resp.sendRedirect("/locality?nameChairmen=" + userSession);
+        resp.sendRedirect("/locality?nameChairmen=" + userSession + "&confirmDelete=true");
     }
 }

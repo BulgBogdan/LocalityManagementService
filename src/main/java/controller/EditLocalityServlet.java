@@ -39,7 +39,6 @@ public class EditLocalityServlet extends HttpServlet {
         locality.setPopulation(localityPopulation);
         localityDAO.update(locality);
         req.setAttribute("chairmenName", userSession);
-        req.setAttribute("confirmEdit", "Данные успешно изменены");
-        req.getRequestDispatcher("locality.jsp").forward(req, resp);
+        resp.sendRedirect("/locality?nameChairmen=" + userSession + "&confirmEdit=true");
     }
 }

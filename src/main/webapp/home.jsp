@@ -133,11 +133,11 @@
                             <br>
                             <c:choose>
                                 <c:when test="${nameCity != null}">
-                                    <a href="infrastructure?cityName=${nameCity}"
+                                    <a href="/infrastructure?cityName=${nameCity}"
                                        class="btn btn-info btn-md">Перейти</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="infrastructure?cityName=${cities.get(0)}" class="btn btn-info btn-md">Перейти</a>
+                                    <a href="/infrastructure?cityName=${cities.get(0)}" class="btn btn-info btn-md">Перейти</a>
                                 </c:otherwise>
                             </c:choose>
                         </c:otherwise>
@@ -149,10 +149,6 @@
     </div>
     <br>
     <br>
-    <div id="register-link" class="text-cent">
-        <br>
-        <a href="#" onclick="history.back();">Вернуться назад</a>
-    </div>
 </main>
 
 

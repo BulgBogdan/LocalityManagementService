@@ -5,6 +5,7 @@ import entity.User;
 import repository.UserDAOImpl;
 import service.UserDAO;
 import util.CheckChairmen;
+import util.CheckConfirmData;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +23,7 @@ public class LocalityServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String chairmenParam = req.getParameter("nameChairmen");
+        req.setAttribute("confirmData", CheckConfirmData.getAttributeParam(req));
         User user = userDAO.getByUsername(chairmenParam);
         List<Locality> localities = user.getLocalities();
         req.setAttribute("isChairmen", CheckChairmen.isChairmen(req.getSession()));

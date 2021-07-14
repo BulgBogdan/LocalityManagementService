@@ -26,6 +26,7 @@ public class CreateInfrastructureServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         cityName = req.getParameter("cityName");
+        req.setAttribute("cityName", cityName);
         req.getRequestDispatcher("infrastructure.jsp").forward(req, resp);
     }
 
@@ -38,6 +39,7 @@ public class CreateInfrastructureServlet extends HttpServlet {
                 .locality(locality)
                 .build();
         infrastructureDAO.create(infrastructure);
-        resp.sendRedirect("/infrastructure?cityName=" + cityName);
+        req.setAttribute("cityName", cityName);
+        resp.sendRedirect("/infrastructure?cityName=" + cityName + "&confirmCreate=true");
     }
 }

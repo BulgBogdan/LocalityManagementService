@@ -39,7 +39,6 @@ public class EditInfrastructureServlet extends HttpServlet {
         infrastructureDAO.update(infrastructure);
         req.setAttribute("infrastructure", infrastructure);
         req.setAttribute("cityName", cityName);
-        req.setAttribute("confirmEdit", "Данные успешно изменены");
-        req.getRequestDispatcher("infrastructure.jsp").forward(req, resp);
+        resp.sendRedirect("/infrastructure?cityName=" + cityName + "&confirmEdit=true");
     }
 }

@@ -22,6 +22,6 @@ public class DeleteInfrastructureServlet extends HttpServlet {
         Infrastructure infrastructure = infrastructureDAO.getById(Integer.parseInt(infrastructureID));
         String cityName = infrastructure.getLocality().getName();
         infrastructureDAO.delete(infrastructure);
-        resp.sendRedirect("/infrastructure?cityName=" + cityName);
+        resp.sendRedirect("/infrastructure?cityName=" + cityName + "&confirmDelete=true");
     }
 }

@@ -8,6 +8,7 @@
         <class>entity.User</class>
         <class>entity.Locality</class>
         <class>entity.Infrastructure</class>
+        <class>entity.StatusLocality</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

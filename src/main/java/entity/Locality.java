@@ -30,6 +30,10 @@ public class Locality implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private StatusLocality statusLocality;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "locality")
     private List<Infrastructure> infrastructures;
 }

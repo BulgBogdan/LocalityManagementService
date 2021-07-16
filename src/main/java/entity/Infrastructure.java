@@ -22,6 +22,15 @@ public class Infrastructure implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "square_meters")
+    private int square;
+
+    @Column(name = "floors")
+    private int floors;
+
+    @Column(name = "persons")
+    private int persons;
+
     @ManyToOne
     @JoinColumn(name = "locality_id")
     private Locality locality;

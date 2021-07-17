@@ -67,12 +67,12 @@ public class EntityDAO<T> implements DAO<T> {
         }
     }
 
-    public boolean delete(T t) {
+    public boolean delete(int id) {
         boolean deleted = false;
         try {
             entityManager = EntityManagerConnect.getEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.remove(entityManager.merge(t));
+            entityManager.remove(entityManager.find(type, id));
             entityManager.getTransaction().commit();
             deleted = true;
         } catch (HibernateException ex) {

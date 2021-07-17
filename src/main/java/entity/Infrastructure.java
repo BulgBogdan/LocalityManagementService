@@ -31,7 +31,7 @@ public class Infrastructure implements Serializable {
     @Column(name = "persons")
     private int persons;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "locality_id")
     private Locality locality;
 }

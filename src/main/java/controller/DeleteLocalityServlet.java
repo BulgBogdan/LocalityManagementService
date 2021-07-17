@@ -19,9 +19,8 @@ public class DeleteLocalityServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String localityID = req.getParameter("localityID");
-        Locality locality = localityDAO.getById(Integer.parseInt(localityID));
         String userSession = (String) req.getSession().getAttribute("userSession");
-        localityDAO.delete(locality);
-        resp.sendRedirect("/locality?nameChairmen=" + userSession + "&confirmDelete=true");
+        boolean confirmDelete = localityDAO.delete(Integer.parseInt(localityID));
+        resp.sendRedirect("/locality?nameChairmen=" + userSession + "&confirmDelete=" + confirmDelete);
     }
 }

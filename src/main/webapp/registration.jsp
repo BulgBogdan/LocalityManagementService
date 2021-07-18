@@ -33,17 +33,27 @@
                         <h3 class="text-center text-info">Регистарция</h3>
                         <div class="form-group">
                             <label for="login" class="text-info">Логин:</label><br>
-                            <input type="text" name="login" id="login" class="form-control">
+                            <input type="text" name="login" id="login" class="form-control" value="${login}">
                             <p style="color: red">${loginError}</p>
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Пароль:</label><br>
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control"
+                                   value="${password}">
                         </div>
                         <div class="form-group">
                             <label for="confirmPassword" class="text-info">Подтверждение пароля:</label><br>
                             <input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
                             <p style="color: red">${passwordError}</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName" class="text-info">Имя:</label><br>
+                            <input type="text" name="firstName" id="firstName" class="form-control"
+                                   value="${firstName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="text-info">Фамилия:</label><br>
+                            <input type="text" name="lastName" id="lastName" class="form-control" value="${lastName}">
                         </div>
 
                         <div class="form-group">

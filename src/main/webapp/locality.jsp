@@ -14,11 +14,12 @@
     <div class="container">
         <div class="row col-md-12 col-md-offset-0">
             <h6 class="text-center">Населеные пункты:</h6>
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
                 <thead style="background-color: #77a4ff">
                 <tr>
                     <th class="text-center">Название</th>
                     <th class="text-center">Население</th>
+                    <th class="text-center">Тип</th>
                     <th class="text-center"></th>
                 </tr>
                 </thead>
@@ -34,6 +35,7 @@
                                     <a href="infrastructure?cityName=${locality.getName()}">${locality.getName()}</a>
                                 </td>
                                 <td class="text-center">${locality.getPopulation()}</td>
+                                <td class="text-center">${locality.getStatusLocality().getStatus()}</td>
 
                                 <c:choose>
                                     <c:when test="${isChairmen}">

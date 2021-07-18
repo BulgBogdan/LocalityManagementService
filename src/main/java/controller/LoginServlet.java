@@ -44,6 +44,9 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
         }
+        if (Objects.nonNull(login)) {
+            req.setAttribute("login", login);
+        }
         req.setAttribute("Error", "Неверный логин или пароль");
         req.getRequestDispatcher("login.jsp").forward(req, resp);
     }

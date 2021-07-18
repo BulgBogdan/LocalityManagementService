@@ -59,10 +59,10 @@
 <%--</nav>--%>
 
 <main class="col offset-md-0 bg-faded py-0">
-    <div class="col-md-5 text-center">
+    <div class="center">
         <c:if test="${!isChairmen}">
             <h6>Выберите председателя:</h6>
-            <form name="test" method="post" action="home">
+            <form class="form-inline my-2 my-lg-0" name="test" method="post" action="home">
                 <select class="form-control mr-sm-0" id="chairmen" name="chairmen" onchange="this.form.submit()">
                     <c:forEach items="${chairmens}" var="chairmenName">
                         <option value="${chairmenName}"
@@ -81,7 +81,7 @@
 
         <div class="col-md-6">
             <div class="card border-info mx-auto mb-5" style="max-width: 350px; height: 350px">
-                <div class="card-header text-center" style="background-color: #77a4ff">
+                <div class="card-header text-center" style="background-color: #b9deff">
                     <b>Населенные пункты</b>
                 </div>
                 <div class="card-body" style="background-color: #d9eeff">
@@ -110,7 +110,7 @@
 
         <div class="col-md-6">
             <div class="card mx-auto border-danger mb-5" style="max-width: 350px; height: 350px">
-                <div class="card-header text-center" style="background-color: #77a4ff">
+                <div class="card-header text-center" style="background-color: #b9deff">
                     <b>Инфраструктура</b>
                 </div>
                 <div class="card-body" style="background-color: #d9eeff">

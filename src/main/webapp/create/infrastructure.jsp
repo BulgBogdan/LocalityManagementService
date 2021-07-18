@@ -26,9 +26,25 @@
                         <div class="form-group">
                             <label for="name" class="text-info">Название:</label><br>
                             <input type="text" name="name" id="name"
-                                   value="${infrastructure.getName()}" class="form-control">
+                                   value="${name}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="square" class="text-info">Площадь(метры):</label><br>
+                            <input type="number" name="square" id="square"
+                                   value="${square}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="floors" class="text-info">Этажность:</label><br>
+                            <input type="number" name="floors" id="floors"
+                                   value="${floors}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="persons" class="text-info">Вместимость:</label><br>
+                            <input type="number" name="persons" id="persons"
+                                   value="${persons}" class="form-control">
                         </div>
 
+                        <p style="color: red">${error}</p>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Создать">
                         </div>

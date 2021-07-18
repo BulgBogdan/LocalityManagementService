@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Objects;
 
 @WebServlet("/cabinet")
 public class CabinetServlet extends HttpServlet {
@@ -33,10 +34,21 @@ public class CabinetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
-        User user = (User) req.getAttribute("user");
-        if (password.equals(confirmPassword)) {
+        String oldPass = req.getParameter("oldPassword");
+        User user = userDAO.getByUsername(req.getParameter("oldLogin"));
+        req.setAttribute("user", user);
+        if (!oldPass.equals(user.getPassword())) {
+            req.setAttribute("errorOldPass", "Неверный пароль");
+            resp.sendRedirect("/cabinet");
+            return;
+        }
+        if (Objects.nonNull(password) && password.equals(confirmPassword)) {
             user.setUsername(user.getUsername());
             user.setPassword(password);
+            String firstName = req.getParameter("firstName");
+            String lastName = req.getParameter("lastName");
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
             userDAO.create(user);
             req.setAttribute("confirmEdit", "Данные успешно изменены");
             req.getRequestDispatcher("cabinet.jsp").forward(req, resp);

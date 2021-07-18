@@ -15,10 +15,13 @@
     <div class="container">
         <div class="row col-md-12 col-md-offset-0">
             <h6 class="text-center">Инфрастуктура ${cityName}:</h6>
-            <table class="table table-striped border-info">
+            <table class="table table-striped table-bordered">
                 <thead style="background-color: #77a4ff">
                 <tr>
                     <th class="text-center">Название</th>
+                    <th class="text-center">Площадь</th>
+                    <th class="text-center">Этажность</th>
+                    <th class="text-center">Вместимость</th>
                     <th class="text-center"></th>
                 </tr>
                 </thead>
@@ -31,6 +34,9 @@
                         <c:forEach items="${infrastructures}" var="infrastructure">
                             <tr>
                                 <td class="text-center">${infrastructure.getName()}</td>
+                                <td class="text-center">${infrastructure.getSquare()}</td>
+                                <td class="text-center">${infrastructure.getFloors()}</td>
+                                <td class="text-center">${infrastructure.getPersons()} человек</td>
                                 <c:choose>
                                     <c:when test="${isChairmen}">
                                         <c:url value="/edit/infrastructure?infrastructureID=${infrastructure.getId()}"

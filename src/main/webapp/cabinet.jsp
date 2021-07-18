@@ -29,7 +29,7 @@
             <div id="singUp-column" class="col-md-6">
                 <div id="singUp-box" class="col-md-12">
 
-                    <form method="POST" action="registration">
+                    <form method="POST" action="cabinet">
                         <h3 class="text-center text-info">Личный кабинет</h3>
                         <div class="form-group">
                             <label for="oldLogin" class="text-info">Логин:</label><br>
@@ -39,6 +39,7 @@
                         <div class="form-group">
                             <label for="oldPassword" class="text-info">Пароль:</label><br>
                             <input type="password" name="oldPassword" id="oldPassword" class="form-control">
+                            <p style="color: red">${errorOldPass}</p>
                         </div>
 
                         <div class="form-group">
@@ -50,6 +51,17 @@
                             <label for="confirmPassword" class="text-info">Подтверждение пароля:</label><br>
                             <input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
                             <p style="color: red">${passwordError}</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="firstName" class="text-info">Имя:</label><br>
+                            <input type="text" name="firstName" id="firstName" class="form-control"
+                                   value="${user.getFirstName()}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="text-info">Фамилия:</label><br>
+                            <input type="text" name="lastName" id="lastName" class="form-control"
+                                   value="${user.getLastName()}">
                         </div>
 
                         <div class="form-group">

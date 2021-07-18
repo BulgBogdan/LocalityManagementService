@@ -28,7 +28,23 @@
                             <input type="text" name="name" id="name"
                                    value="${infrastructure.getName()}" class="form-control">
                         </div>
+                        <div class="form-group">
+                            <label for="square" class="text-info">Площадь(метры):</label><br>
+                            <input type="number" name="square" id="square"
+                                   value="${infrastructure.getSquare()}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="floors" class="text-info">Этажность:</label><br>
+                            <input type="number" name="floors" id="floors"
+                                   value="${infrastructure.getFloors()}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="persons" class="text-info">Вместимость:</label><br>
+                            <input type="number" name="persons" id="persons"
+                                   value="${infrastructure.getPersons()}" class="form-control">
+                        </div>
 
+                        <p style="color: red">${error}</p>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Изменить данные">
                         </div>

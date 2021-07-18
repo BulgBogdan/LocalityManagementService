@@ -31,6 +31,9 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+        String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+        setAttributes(req, login, password, firstName, lastName);
         String confirmPassword = req.getParameter("confirmPassword");
         Role userRole = roleDAO.getById(2);
         if (Objects.nonNull(userDAO.getByUsername(login))) {
@@ -38,10 +41,12 @@ public class RegistrationServlet extends HttpServlet {
             req.getRequestDispatcher("registration.jsp").forward(req, resp);
             return;
         }
-        if (password.equals(confirmPassword)) {
+        if (Objects.nonNull(password) && password.equals(confirmPassword)) {
             User user = User.builder()
                     .username(login)
                     .password(password)
+                    .firstName(firstName)
+                    .lastName(lastName)
                     .role(userRole)
                     .build();
             userDAO.create(user);
@@ -51,6 +56,22 @@ public class RegistrationServlet extends HttpServlet {
         } else {
             req.setAttribute("passwordError", "Пароли не совпадают");
             req.getRequestDispatcher("registration.jsp").forward(req, resp);
+        }
+    }
+
+    private void setAttributes(HttpServletRequest request,
+                               String login, String password, String firstName, String lastName) {
+        if (Objects.nonNull(login)) {
+            request.setAttribute("login", login);
+        }
+        if (Objects.nonNull(password)) {
+            request.setAttribute("password", password);
+        }
+        if (Objects.nonNull(firstName)) {
+            request.setAttribute("firstName", firstName);
+        }
+        if (Objects.nonNull(lastName)) {
+            request.setAttribute("lastName", lastName);
         }
     }
 }

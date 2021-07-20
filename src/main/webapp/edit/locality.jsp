@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -35,11 +36,22 @@
                         </div>
                         <div class="form-group">
                             <label for="population" class="text-info">Население:</label><br>
-                            <input type="text" name="population" id="population"
+                            <input type="number" name="population" id="population"
                                    value="${locality.getPopulation()}" class="form-control">
+                        </div>
+                        <div>
+                            <select class="form-control mr-sm-0" id="statusLocal" name="statusLocal">
+                                <c:forEach items="${statusCity}" var="status">
+                                    <option value="${status.getId()}"
+                                        ${status == locality.getStatusLocality() ? 'selected="selected"' : ''}>
+                                            ${status.getStatus()}
+                                    </option>
+                                </c:forEach>
+                            </select>
                         </div>
 
                         <div class="form-group">
+                            <p style="color: red">${error}</p>
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Изменить данные">
                         </div>
 

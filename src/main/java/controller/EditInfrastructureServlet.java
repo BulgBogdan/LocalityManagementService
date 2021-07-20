@@ -3,7 +3,7 @@ package controller;
 import entity.Infrastructure;
 import repository.InfrastructureDAOImpl;
 import service.InfrastructureDAO;
-import util.CheckFieldsInfrastructure;
+import util.CheckInfrastructure;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,15 +34,15 @@ public class EditInfrastructureServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (!CheckFieldsInfrastructure.checkFullFields(req)) {
+        req.setAttribute("cityName", cityName);
+        if (!CheckInfrastructure.checkFullFields(req)) {
             req.setAttribute("error", "Заполните все поля");
-            CheckFieldsInfrastructure.setAttributeInfrastructure(req);
+            CheckInfrastructure.setAttributeInfrastructure(req);
             req.getRequestDispatcher("infrastructure.jsp").forward(req, resp);
         } else {
             Infrastructure infrastructure = infrastructureDAO.getById(Integer.parseInt(infrastructureID));
-            infrastructureDAO.update(CheckFieldsInfrastructure.checkInfrastructure(infrastructure, req));
+            infrastructureDAO.update(CheckInfrastructure.checkInfrastructure(infrastructure, req));
             req.setAttribute("infrastructure", infrastructure);
-            req.setAttribute("cityName", cityName);
             resp.sendRedirect("/infrastructure?cityName=" + cityName + "&confirmEdit=true");
         }
     }

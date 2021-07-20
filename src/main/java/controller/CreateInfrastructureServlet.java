@@ -6,7 +6,7 @@ import repository.InfrastructureDAOImpl;
 import repository.LocalityDAOImpl;
 import service.InfrastructureDAO;
 import service.LocalityDAO;
-import util.CheckFieldsInfrastructure;
+import util.CheckInfrastructure;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,17 +34,17 @@ public class CreateInfrastructureServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Locality locality = localityDAO.getByCityName(cityName);
-        if (!CheckFieldsInfrastructure.checkFullFields(req)) {
+        req.setAttribute("cityName", cityName);
+        if (!CheckInfrastructure.checkFullFields(req)) {
             req.setAttribute("error", "Заполните все поля");
-            CheckFieldsInfrastructure.setAttributeInfrastructure(req);
+            CheckInfrastructure.setAttributeInfrastructure(req);
             req.getRequestDispatcher("infrastructure.jsp").forward(req, resp);
             return;
         } else {
-            Infrastructure infrastructure = CheckFieldsInfrastructure.checkInfrastructure(new Infrastructure(), req);
+            Infrastructure infrastructure = CheckInfrastructure.checkInfrastructure(new Infrastructure(), req);
             infrastructure.setLocality(locality);
             infrastructureDAO.create(infrastructure);
         }
-        req.setAttribute("cityName", cityName);
         resp.sendRedirect("/infrastructure?cityName=" + cityName + "&confirmCreate=true");
     }
 

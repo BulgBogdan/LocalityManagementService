@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
 <html>
 <head>
     <title>Infrastructure</title>
@@ -14,14 +17,14 @@
 <main class="container">
     <div class="container">
         <div class="row col-md-12 col-md-offset-0">
-            <h6 class="text-center">Инфрастуктура ${cityName}:</h6>
+            <h6 class="text-center"><fmt:message key="label.infrastructure"/> ${cityName}:</h6>
             <table class="table table-striped table-bordered">
                 <thead style="background-color: #77a4ff">
                 <tr>
-                    <th class="text-center">Название</th>
-                    <th class="text-center">Площадь</th>
-                    <th class="text-center">Этажность</th>
-                    <th class="text-center">Вместимость</th>
+                    <th class="text-center"><fmt:message key="label.title"/></th>
+                    <th class="text-center"><fmt:message key="label.square"/></th>
+                    <th class="text-center"><fmt:message key="label.floors"/></th>
+                    <th class="text-center"><fmt:message key="label.persons"/></th>
                     <th class="text-center"></th>
                 </tr>
                 </thead>
@@ -36,7 +39,8 @@
                                 <td class="text-center">${infrastructure.getName()}</td>
                                 <td class="text-center">${infrastructure.getSquare()}</td>
                                 <td class="text-center">${infrastructure.getFloors()}</td>
-                                <td class="text-center">${infrastructure.getPersons()} человек</td>
+                                <td class="text-center">${infrastructure.getPersons()} <fmt:message
+                                        key="label.persons"/></td>
                                 <c:choose>
                                     <c:when test="${isChairmen}">
                                         <c:url value="/edit/infrastructure?infrastructureID=${infrastructure.getId()}"
@@ -77,7 +81,7 @@
         </div>
         <c:if test="${isChairmen}">
             <a href="create/infrastructure?cityName=${cityName}"
-               class="btn btn-primary btn-xs pull-right"><b>+</b> Добавить инфраструктуру</a>
+               class="btn btn-primary btn-xs pull-right"><b>+</b> <fmt:message key="label.addInfrastructure"/></a>
         </c:if>
     </div>
     <div class="text-center">
@@ -86,7 +90,7 @@
     <br>
     <div id="register-link" class="text-center">
         <br>
-        <a href="#" onclick="history.back();">Вернуться назад</a>
+        <a href="#" onclick="history.back();"><fmt:message key="label.back"/></a>
     </div>
 </main>
 

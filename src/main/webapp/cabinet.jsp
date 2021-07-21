@@ -1,6 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -30,47 +34,50 @@
                 <div id="singUp-box" class="col-md-12">
 
                     <form method="POST" action="cabinet">
-                        <h3 class="text-center text-info">Личный кабинет</h3>
+                        <h3 class="text-center text-info"><fmt:message key="label.cabinet"/></h3>
                         <div class="form-group">
-                            <label for="oldLogin" class="text-info">Логин:</label><br>
+                            <label for="oldLogin" class="text-info"><fmt:message key="label.login"/>:</label><br>
                             <input type="text" name="oldLogin" id="oldLogin" value="${user.getUsername()}"
                                    readonly="readonly" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="oldPassword" class="text-info">Пароль:</label><br>
+                            <label for="oldPassword" class="text-info"><fmt:message key="label.password"/>:</label><br>
                             <input type="password" name="oldPassword" id="oldPassword" class="form-control">
                             <p style="color: red">${errorOldPass}</p>
                         </div>
 
                         <div class="form-group">
-                            <label for="password" class="text-info">Новый пароль:</label><br>
+                            <label for="password" class="text-info"><fmt:message key="label.newPassword"/>:</label><br>
                             <input type="password" name="password" id="password" class="form-control">
                         </div>
 
                         <div class="form-group">
-                            <label for="confirmPassword" class="text-info">Подтверждение пароля:</label><br>
+                            <label for="confirmPassword" class="text-info">
+                                <fmt:message key="label.confirmPassword"/>:
+                            </label><br>
                             <input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
                             <p style="color: red">${passwordError}</p>
                         </div>
 
                         <div class="form-group">
-                            <label for="firstName" class="text-info">Имя:</label><br>
+                            <label for="firstName" class="text-info"><fmt:message key="label.firstname"/>:</label><br>
                             <input type="text" name="firstName" id="firstName" class="form-control"
                                    value="${user.getFirstName()}">
                         </div>
                         <div class="form-group">
-                            <label for="lastName" class="text-info">Фамилия:</label><br>
+                            <label for="lastName" class="text-info"><fmt:message key="label.lastname"/>:</label><br>
                             <input type="text" name="lastName" id="lastName" class="form-control"
                                    value="${user.getLastName()}">
                         </div>
 
                         <div class="form-group">
                             <p style="color: green">${confirmEdit}</p>
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Изменить данные">
+                            <input type="submit" name="submit" class="btn btn-info btn-md"
+                                   value="<fmt:message key="label.edit"/>">
                         </div>
 
                         <div id="register-link" class="text-left">
-                            <a href="#" onclick="history.back();">Вернуться назад</a>
+                            <a href="#" onclick="history.back();"><fmt:message key="label.back"/></a>
                         </div>
                         <c:if test="${correctUsers == true}">
                             <div id="register-link" class="text-right">

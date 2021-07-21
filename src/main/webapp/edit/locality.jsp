@@ -1,5 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
 <html>
 <head>
     <title>Title</title>
@@ -28,14 +32,14 @@
                 <div id="singUp-box" class="col-md-12">
 
                     <form method="POST" action="locality">
-                        <h3 class="text-center text-info">Населенный пункт</h3>
+                        <h3 class="text-center text-info"><fmt:message key="label.location"/></h3>
                         <div class="form-group">
-                            <label for="name" class="text-info">Название:</label><br>
+                            <label for="name" class="text-info"><fmt:message key="label.title"/>:</label><br>
                             <input type="text" name="name" id="name"
                                    value="${locality.getName()}" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="population" class="text-info">Население:</label><br>
+                            <label for="population" class="text-info"><fmt:message key="label.population"/>:</label><br>
                             <input type="number" name="population" id="population"
                                    value="${locality.getPopulation()}" class="form-control">
                         </div>
@@ -52,11 +56,12 @@
 
                         <div class="form-group">
                             <p style="color: red">${error}</p>
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Изменить данные">
+                            <input type="submit" name="submit" class="btn btn-info btn-md"
+                                   value="<fmt:message key="label.edit"/>">
                         </div>
 
                         <div id="register-link" class="text-left">
-                            <a href="/locality?nameChairmen=${chairmenName}">Вернуться назад</a>
+                            <a href="/locality?nameChairmen=${chairmenName}"><fmt:message key="label.back"/></a>
                         </div>
                     </form>
                 </div>

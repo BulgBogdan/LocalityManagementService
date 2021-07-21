@@ -1,5 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
 <html>
 <head>
     <title>Home</title>
@@ -61,7 +65,7 @@
 <main class="col offset-md-0 bg-faded py-0">
     <div class="center">
         <c:if test="${!isChairmen}">
-            <h6>Выберите председателя:</h6>
+            <h6><fmt:message key="label.selectChairmen"/>:</h6>
             <form class="form-inline my-2 my-lg-0" name="test" method="post" action="home">
                 <select class="form-control mr-sm-0" id="chairmen" name="chairmen" onchange="this.form.submit()">
                     <c:forEach items="${chairmens}" var="chairmenName">
@@ -74,7 +78,7 @@
     </div>
     <br>
     <div class="text-center">
-        <h4>Выберите раздел:</h4>
+        <h4><fmt:message key="label.select"/>:</h4>
     </div>
     <br>
     <div class="row">
@@ -82,23 +86,27 @@
         <div class="col-md-6">
             <div class="card border-info mx-auto mb-5" style="max-width: 350px; height: 350px">
                 <div class="card-header text-center" style="background-color: #b9deff">
-                    <b>Населенные пункты</b>
+                    <b><fmt:message key="label.localities"/></b>
                 </div>
                 <div class="card-body" style="background-color: #d9eeff">
                     <p class="card-text">В разделе отображена информация о населенных пунктах.</p>
                     <c:choose>
                         <c:when test="${isChairmen}">
-                            <a href="/locality?nameChairmen=${nameChairmen}" class="btn btn-info btn-md">Перейти</a>
+                            <a href="/locality?nameChairmen=${nameChairmen}" class="btn btn-info btn-md">
+                                <fmt:message key="label.select"/>
+                            </a>
                         </c:when>
                         <c:otherwise>
                             <c:choose>
                                 <c:when test="${nameChairmen != null}">
-                                    <a href="/locality?nameChairmen=${nameChairmen}"
-                                       class="btn btn-info btn-md">Перейти</a>
+                                    <a href="/locality?nameChairmen=${nameChairmen}" class="btn btn-info btn-md">
+                                        <fmt:message key="label.select"/>
+                                    </a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="/locality?nameChairmen=${chairmens.get(0)}"
-                                       class="btn btn-info btn-md">Перейти</a>
+                                    <a href="/locality?nameChairmen=${chairmens.get(0)}" class="btn btn-info btn-md">
+                                        <fmt:message key="label.select"/>
+                                    </a>
                                 </c:otherwise>
                             </c:choose>
                         </c:otherwise>
@@ -111,7 +119,7 @@
         <div class="col-md-6">
             <div class="card mx-auto border-danger mb-5" style="max-width: 350px; height: 350px">
                 <div class="card-header text-center" style="background-color: #b9deff">
-                    <b>Инфраструктура</b>
+                    <b><fmt:message key="label.infrastructure"/></b>
                 </div>
                 <div class="card-body" style="background-color: #d9eeff">
                     <c:choose>
@@ -119,7 +127,7 @@
                             <p>У данного председателя нет населенных пунктов.</p>
                         </c:when>
                         <c:otherwise>
-                            <p>Выберите населенный пункт:</p>
+                            <p><fmt:message key="label.selectChairmen"/>:</p>
                             <form name="test" method="post" action="home">
                                 <select class="form-control mr-sm-0" id="city" name="city"
                                         onchange="this.form.submit()">
@@ -133,11 +141,14 @@
                             <br>
                             <c:choose>
                                 <c:when test="${nameCity != null}">
-                                    <a href="/infrastructure?cityName=${nameCity}"
-                                       class="btn btn-info btn-md">Перейти</a>
+                                    <a href="/infrastructure?cityName=${nameCity}" class="btn btn-info btn-md">
+                                        <fmt:message key="label.select"/>
+                                    </a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="/infrastructure?cityName=${cities.get(0)}" class="btn btn-info btn-md">Перейти</a>
+                                    <a href="/infrastructure?cityName=${cities.get(0)}" class="btn btn-info btn-md">
+                                        <fmt:message key="label.select"/>
+                                    </a>
                                 </c:otherwise>
                             </c:choose>
                         </c:otherwise>
@@ -150,7 +161,5 @@
     <br>
     <br>
 </main>
-
-
 </body>
 </html>

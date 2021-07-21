@@ -1,5 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
 <html>
 <head>
     <title>Locality</title>
@@ -13,13 +17,13 @@
 <main class="container">
     <div class="container">
         <div class="row col-md-12 col-md-offset-0">
-            <h6 class="text-center">Населеные пункты:</h6>
+            <h6 class="text-center"><fmt:message key="label.localities"/>:</h6>
             <table class="table table-striped table-bordered">
                 <thead style="background-color: #77a4ff">
                 <tr>
-                    <th class="text-center">Название</th>
-                    <th class="text-center">Население</th>
-                    <th class="text-center">Тип</th>
+                    <th class="text-center"><fmt:message key="label.title"/></th>
+                    <th class="text-center"><fmt:message key="label.population"/></th>
+                    <th class="text-center"><fmt:message key="label.type"/></th>
                     <th class="text-center"></th>
                 </tr>
                 </thead>
@@ -77,8 +81,9 @@
             </table>
         </div>
         <c:if test="${isChairmen}">
-            <a href="create/locality" class="btn btn-primary btn-xs pull-right"><b>+</b> Добавить населенный
-                пункт</a>
+            <a href="create/locality" class="btn btn-primary btn-xs pull-right">
+                <b>+</b> <fmt:message key="label.addLocality"/>
+            </a>
         </c:if>
     </div>
     <div class="text-center">
@@ -87,7 +92,7 @@
     <br>
     <div id="register-link" class="text-center">
         <br>
-        <a href="#" onclick="history.back();">Вернуться назад</a>
+        <a href="#" onclick="history.back();"><fmt:message key="label.back"/></a>
     </div>
 </main>
 

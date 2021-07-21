@@ -1,4 +1,8 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
 <html>
 <head>
     <title>Title</title>
@@ -22,35 +26,36 @@
                 <div id="singUp-box" class="col-md-12">
 
                     <form method="POST" action="infrastructure">
-                        <h3 class="text-center text-info">Инфраструктура</h3>
+                        <h3 class="text-center text-info"><fmt:message key="label.infrastructure"/></h3>
                         <div class="form-group">
-                            <label for="name" class="text-info">Название:</label><br>
+                            <label for="name" class="text-info"><fmt:message key="label.title"/>:</label><br>
                             <input type="text" name="name" id="name"
                                    value="${name}" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="square" class="text-info">Площадь(метры):</label><br>
+                            <label for="square" class="text-info"><fmt:message key="label.square"/>(м):</label><br>
                             <input type="number" name="square" id="square"
                                    value="${square}" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="floors" class="text-info">Этажность:</label><br>
+                            <label for="floors" class="text-info"><fmt:message key="label.floors"/>:</label><br>
                             <input type="number" name="floors" id="floors"
                                    value="${floors}" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="persons" class="text-info">Вместимость:</label><br>
+                            <label for="persons" class="text-info"><fmt:message key="label.persons"/>:</label><br>
                             <input type="number" name="persons" id="persons"
                                    value="${persons}" class="form-control">
                         </div>
 
                         <p style="color: red">${error}</p>
                         <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Создать">
+                            <input type="submit" name="submit" class="btn btn-info btn-md"
+                                   value="<fmt:message key="label.create"/>">
                         </div>
 
                         <div id="register-link" class="text-left">
-                            <a href="/infrastructure?cityName=${cityName}">Вернуться назад</a>
+                            <a href="/infrastructure?cityName=${cityName}"><fmt:message key="label.back"/></a>
                         </div>
                     </form>
                 </div>

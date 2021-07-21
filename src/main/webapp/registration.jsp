@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-
+<%@ page isELIgnored="false" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,37 +33,39 @@
                 <div id="singUp-box" class="col-md-12">
 
                     <form method="POST" action="registration">
-                        <h3 class="text-center text-info">Регистарция</h3>
+                        <h3 class="text-center text-info"><fmt:message key="label.registration"/></h3>
                         <div class="form-group">
-                            <label for="login" class="text-info">Логин:</label><br>
+                            <label for="login" class="text-info"><fmt:message key="label.login"/>:</label><br>
                             <input type="text" name="login" id="login" class="form-control" value="${login}">
                             <p style="color: red">${loginError}</p>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="text-info">Пароль:</label><br>
+                            <label for="password" class="text-info"><fmt:message key="label.password"/>:</label><br>
                             <input type="password" name="password" id="password" class="form-control"
                                    value="${password}">
                         </div>
                         <div class="form-group">
-                            <label for="confirmPassword" class="text-info">Подтверждение пароля:</label><br>
+                            <label for="confirmPassword" class="text-info"><fmt:message
+                                    key="label.confirmPassword"/>:</label><br>
                             <input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
                             <p style="color: red">${passwordError}</p>
                         </div>
                         <div class="form-group">
-                            <label for="firstName" class="text-info">Имя:</label><br>
+                            <label for="firstName" class="text-info"><fmt:message key="label.firstname"/>:</label><br>
                             <input type="text" name="firstName" id="firstName" class="form-control"
                                    value="${firstName}">
                         </div>
                         <div class="form-group">
-                            <label for="lastName" class="text-info">Фамилия:</label><br>
+                            <label for="lastName" class="text-info"><fmt:message key="label.lastname"/>:</label><br>
                             <input type="text" name="lastName" id="lastName" class="form-control" value="${lastName}">
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Зарегестрировать">
+                            <input type="submit" name="submit" class="btn btn-info btn-md"
+                                   value="<fmt:message key="label.input"/>">
                         </div>
                         <div id="register-link" class="text-right">
-                            <a href="/login" class="text-info">На страницу авторизации</a>
+                            <a href="/login" class="text-info"><fmt:message key="label.authorization"/></a>
                         </div>
                     </form>
                 </div>

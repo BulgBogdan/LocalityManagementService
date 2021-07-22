@@ -1,13 +1,15 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
-<%@ page isELIgnored="false" %>
+<c:set var="language"
+       value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
+       scope="session"/>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="language"/>
 <!DOCTYPE html>
 <html lang="${sessionScope.lang}">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>Login</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

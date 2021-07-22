@@ -5,13 +5,27 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-        var url = "${pageContext.request.contextPath}";
         $(document).ready(function () {
-            $("#languageSelect").change(function () {
+            $('select').on('change', function (e) {
                 var value = $('#languageSelect').val();
-                window.location.href = url + '?sessionLocale=' + value;
+                var urlNow = window.location.href.replace(/\?.*/g, '').replace(/\/$/g, '');
+                var str = document.location.search;
+                if (typeof str == 'undefined' || !str || str.length === 0 || str === ""
+                    || !/[^\s]/.test(str) || /^\s*$/.test(str) || str.replace(/\s/g, "") === "") {
+                    window.location.href = urlNow + '?sessionLocale=' + value;
+                } else {
+                    window.location.href = urlNow + paramsString + '&sessionLocale=' + value;
+                }
+                // history.replaceState({},'',urlNow + paramsString + '?sessionLocale='+value);
             });
         });
+        <%--var url = "${pageContext.request.contextPath}";--%>
+        <%--$(document).ready(function () {--%>
+        <%--$("#languageSelect").change(function () {--%>
+        <%--var value = $('#languageSelect').val();--%>
+        <%--window.location.href = url + '?sessionLocale=' + value;--%>
+        <%--});--%>
+        <%--});--%>
     </script>
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -45,7 +59,6 @@
                             <fmt:message key="label.lang.ru"/>
                         </option>
                     </select>
-                    <c:set var="langSelect" value="${param.languageSelect}" scope="session"/>
                 </form>
                 <a class="nav-link" href="#"></a>
             </li>

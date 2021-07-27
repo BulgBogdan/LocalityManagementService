@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
-@WebFilter(urlPatterns = {"/edit/user", "/delete/user", "users"})
+@WebFilter(urlPatterns = {"/edit/user", "/delete/user", "/users"})
 public class AdminFilter implements Filter {
 
     private UserDAO userDAO = new UserDAOImpl(User.class);
@@ -48,9 +48,9 @@ public class AdminFilter implements Filter {
     private boolean isRoleAdmin(User user) {
         boolean isAdmin;
         if (user.getRole().getRole().equals("admin")) {
-            isAdmin = false;
-        } else {
             isAdmin = true;
+        } else {
+            isAdmin = false;
         }
         return isAdmin;
     }

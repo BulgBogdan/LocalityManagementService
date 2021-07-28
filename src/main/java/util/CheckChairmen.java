@@ -13,7 +13,7 @@ public class CheckChairmen {
         boolean isChairmen = false;
         String nameUserSession = (String) session.getAttribute("userSession");
         User user = userDAO.getByUsername(nameUserSession);
-        if (user.getRole().getId() == 3 || user.getRole().getId() == 1) {
+        if (user.getRole().getId() == 3) {
             isChairmen = true;
         }
         return isChairmen;

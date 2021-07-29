@@ -82,7 +82,7 @@
                         </div>
 
                         <div id="register-link" class="text-left">
-                            <a href="#" onclick="history.back();"><fmt:message key="label.back"/></a>
+                            <a href="/users"><fmt:message key="label.back"/></a>
                         </div>
                     </form>
                 </div>

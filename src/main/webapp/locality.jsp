@@ -70,7 +70,7 @@
                                         </td>
                                     </c:when>
                                     <c:otherwise>
-                                        <td> -</td>
+                                        <td class="text-center"> -</td>
                                     </c:otherwise>
                                 </c:choose>
                             </tr>

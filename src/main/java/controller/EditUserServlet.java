@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/edit/user")
 public class EditUserServlet extends HttpServlet {
@@ -22,13 +23,16 @@ public class EditUserServlet extends HttpServlet {
 
     private User user;
 
+    List<Role> roles;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userID = req.getParameter("userID");
         user = userDAO.getById(Integer.parseInt(userID));
+        roles = roleDAO.getAll();
         req.setAttribute("user", user);
         req.setAttribute("roleID", user.getRole().getId());
-        req.setAttribute("roles", roleDAO.getAll());
+        req.setAttribute("roles", roles);
         req.getRequestDispatcher("user.jsp").forward(req, resp);
     }
 
@@ -43,8 +47,9 @@ public class EditUserServlet extends HttpServlet {
         user.setRole(role);
         userDAO.update(user);
         req.setAttribute("user", user);
+        req.setAttribute("roles", roles);
         req.setAttribute("roleID", Integer.parseInt(roleId));
         req.setAttribute("confirmEdit", "Данные успешно изменены");
-        req.getRequestDispatcher("users.jsp").forward(req, resp);
+        req.getRequestDispatcher("user.jsp").forward(req, resp);
     }
 }

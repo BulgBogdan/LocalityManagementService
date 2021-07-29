@@ -56,6 +56,7 @@ public class EntityDAO<T> implements DAO<T> {
         try {
             entityManager = EntityManagerConnect.getEntityManager();
             entityManager.getTransaction().begin();
+            entityManager.clear();
             entityManager.merge(t);
             entityManager.getTransaction().commit();
         } catch (HibernateException ex) {

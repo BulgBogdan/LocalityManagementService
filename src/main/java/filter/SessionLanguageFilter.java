@@ -13,6 +13,8 @@ public class SessionLanguageFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         request.setCharacterEncoding("UTF-8");
+//        response.setContentType("text/html; charset=UTF-8");
+//        response.setCharacterEncoding("UTF-8");
         if (req.getParameter("sessionLocale") != null) {
             req.getSession().setAttribute("lang", req.getParameter("sessionLocale"));
         }

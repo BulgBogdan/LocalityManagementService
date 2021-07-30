@@ -44,6 +44,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userSession = (String) req.getSession().getAttribute("userSession");
+        req.setAttribute("selectLang", req.getSession().getAttribute("lang"));
         if (CheckChairmen.isChairmen(req.getSession())) {
             req.setAttribute("isChairmen", true);
             req.setAttribute("cities", getCities(userSession));
@@ -53,9 +54,6 @@ public class HomeServlet extends HttpServlet {
             if (Objects.isNull(req.getParameter("chairmen"))) {
                 req.setAttribute("cities", getCities(getChairmens().get(0)));
             }
-//            else {
-//                req.setAttribute("cities", getCities(req.getParameter("chairmen")));
-//            }
         }
         req.getRequestDispatcher("home.jsp").forward(req, resp);
     }
@@ -64,6 +62,7 @@ public class HomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String city = req.getParameter("city");
         String chairmen = req.getParameter("chairmen");
+        req.setAttribute("selectLang", req.getSession().getAttribute("lang"));
         req.setAttribute("isChairmen", CheckChairmen.isChairmen(req.getSession()));
         if (Objects.nonNull(city)) {
             req.setAttribute("nameCity", city);

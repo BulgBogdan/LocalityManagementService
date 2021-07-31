@@ -5,27 +5,20 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('select').on('change', function (e) {
-                var value = $('#languageSelect').val();
-                var urlNow = window.location.href.replace(/\?.*/g, '').replace(/\/$/g, '');
-                var str = document.location.search;
-                if (typeof str == 'undefined' || !str || str.length === 0 || str === ""
-                    || !/[^\s]/.test(str) || /^\s*$/.test(str) || str.replace(/\s/g, "") === "") {
-                    window.location.href = urlNow + '?sessionLocale=' + value;
-                } else {
-                    window.location.href = urlNow + paramsString + '&sessionLocale=' + value;
-                }
-                // history.replaceState({},'',urlNow + paramsString + '?sessionLocale='+value);
-            });
-        });
-        <%--var url = "${pageContext.request.contextPath}";--%>
-        <%--$(document).ready(function () {--%>
-        <%--$("#languageSelect").change(function () {--%>
-        <%--var value = $('#languageSelect').val();--%>
-        <%--window.location.href = url + '?sessionLocale=' + value;--%>
-        <%--});--%>
-        <%--});--%>
+        // $(document).ready(function () {
+        //     $('select').on('change', function (e) {
+        //         var value = $('#languageSelect').val();
+        //         var urlNow = window.location.href.replace(/\?.*/g, '').replace(/\/$/g, '');
+        //         var str = document.location.search;
+        //         if (typeof str == 'undefined' || !str || str.length === 0 || str === ""
+        //             || !/[^\s]/.test(str) || /^\s*$/.test(str) || str.replace(/\s/g, "") === "") {
+        //             window.location.href = urlNow + '?sessionLocale=' + value;
+        //         } else {
+        //             window.location.href = urlNow + paramsString + '&sessionLocale=' + value;
+        //         }
+        //         // history.replaceState({},'',urlNow + paramsString + '?sessionLocale='+value);
+        //     });
+        // });
     </script>
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -46,20 +39,6 @@
             </li>
 
             <li class="nav-item">
-                <%--name="language" method="post" action="${pageContext.request.contextPath}?sessionLocale=${langSelect}"--%>
-                <%--onchange="this.form.submit()"--%>
-                <form class="form-inline my-2 my-lg-0">
-                    <select class="form-control mr-sm-0" id="languageSelect">
-                        <option value="en"
-                                <c:if test="${param.selectValue == 'en'})"> selected </c:if> >
-                            <fmt:message key="label.lang.en"/>
-                        </option>
-                        <option value="ru"
-                                <c:if test="${param.selectValue == 'ru'})"> selected </c:if> >
-                            <fmt:message key="label.lang.ru"/>
-                        </option>
-                    </select>
-                </form>
                 <a class="nav-link" href="#"></a>
             </li>
             <li class="nav-item">

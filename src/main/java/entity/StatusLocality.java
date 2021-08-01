@@ -23,6 +23,6 @@ public class StatusLocality implements Serializable {
     @Column(name = "status")
     private String status;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "statusLocality")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, mappedBy = "statusLocality")
     private List<Locality> localities;
 }

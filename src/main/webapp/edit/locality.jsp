@@ -47,7 +47,7 @@
                             <select class="form-control mr-sm-0" id="statusLocal" name="statusLocal">
                                 <c:forEach items="${statusCity}" var="status">
                                     <option value="${status.getId()}"
-                                        ${status == locality.getStatusLocality() ? 'selected="selected"' : ''}>
+                                        ${status.getId() == locality.getStatusLocality().getId() ? 'selected="selected"' : ''}>
                                             ${status.getStatus()}
                                     </option>
                                 </c:forEach>

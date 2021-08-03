@@ -22,52 +22,44 @@
             background-color: #f6fcff
         }
     </style>
+    <style>
+        form.centerField {
+            margin-left: auto;
+            margin-right: auto;
+            width: 6em
+        }
+
+        form.leftField {
+            margin-left: 10px;
+            margin-right: auto;
+            width: 6em
+        }
+    </style>
 </head>
 <body>
 <%@include file="include/header.jsp" %>
-<%--<nav class="navbar navbar-expand-lg navbar-light bg-light">--%>
-
-<%--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"--%>
-<%--aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">--%>
-<%--<span class="navbar-toggler-icon"></span>--%>
-<%--</button>--%>
-
-
-<%--<div class="collapse navbar-collapse" id="navbarTogglerDemo02">--%>
-<%--<ul class="navbar-nav mr-auto mt-3 mt-lg-0">--%>
-<%--<li class="nav-item">--%>
-<%--<a class="nav-link" href="home">Главная</a>--%>
-<%--</li>--%>
-<%--<li class="nav-item">--%>
-<%--<a class="nav-link" href="#"></a>--%>
-<%--</li>--%>
-
-<%--<li class="nav-item">--%>
-<%--<a class="nav-link" href="#"></a>--%>
-<%--</li>--%>
-<%--<li class="nav-item">--%>
-<%--<a class="nav-link" href="#"></a>--%>
-<%--</li>--%>
-<%--</ul>--%>
-<%--<ul class="navbar-nav my-2 my-lg-0">--%>
-<%--<li class="nav-item active">--%>
-<%--<a class="nav-link" href="cabinet"><span class="sr-only">(current)</span>Личный кабинет</a>--%>
-<%--</li>--%>
-<%--<li class="nav-item active">--%>
-<%--<a class="btn btn-sm btn-outline-danger" title="Выход из профиля"--%>
-<%--href="logout">Выход</a>--%>
-<%--</li>--%>
-<%--</ul>--%>
-
-<%--</div>--%>
-<%--</nav>--%>
 
 <main class="col offset-md-0 bg-faded py-0">
-    <div class="center">
+    <div class="text-center">
+        <div class="text-centre">
+            <form class="form-inline leftField" name="language" method="post"
+                  action="${pageContext.request.contextPath}?sessionLocale=${selectLang}"
+                  onchange="this.form.submit()">
+                <select class="form-control" id="languageSelect" name="langSelect">
+                    <option value="en"
+                            <c:if test="${selectLang == 'en'}"> selected </c:if>>
+                        <fmt:message key="label.lang.en"/>
+                    </option>
+                    <option value="ru"
+                            <c:if test="${selectLang == 'ru'}"> selected </c:if>>
+                        <fmt:message key="label.lang.ru"/>
+                    </option>
+                </select>
+            </form>
         <c:if test="${!isChairmen}">
             <h6><fmt:message key="label.selectChairmen"/>:</h6>
-            <form class="form-inline my-2 my-lg-0" name="test" method="post" action="home">
-                <select class="form-control mr-sm-0" id="chairmen" name="chairmen" onchange="this.form.submit()">
+            <form class="form-inline centerField" name="test" method="post" action="home">
+                <select class="form-control" id="chairmen" name="chairmen" onchange="this.form.submit()">
                     <c:forEach items="${chairmens}" var="chairmenName">
                         <option value="${chairmenName}"
                             ${chairmenName == nameChairmen ? 'selected="selected"' : ''}>${chairmenName}</option>
@@ -75,6 +67,24 @@
                 </select>
             </form>
         </c:if>
+        </div>
+        <%--<div class="text-left">--%>
+        <%--<form class="form-inline" name="language" method="post"--%>
+        <%--action="${pageContext.request.contextPath}?sessionLocale=${selectLang}"--%>
+        <%--onchange="this.form.submit()">--%>
+        <%--<select class="form-control" id="languageSelect" name="langSelect">--%>
+        <%--<option value="en"--%>
+        <%--<c:if test="${selectLang == 'en'}"> selected </c:if>>--%>
+        <%--<fmt:message key="label.lang.en"/>--%>
+        <%--</option>--%>
+        <%--<option value="ru"--%>
+        <%--<c:if test="${selectLang == 'ru'}"> selected </c:if>>--%>
+        <%--<fmt:message key="label.lang.ru"/>--%>
+        <%--</option>--%>
+        <%--</select>--%>
+        <%--</form>--%>
+        <%--</div>--%>
+
     </div>
     <br>
     <div class="text-center">
@@ -84,7 +94,7 @@
     <div class="row">
 
         <div class="col-md-6">
-            <div class="card border-info mx-auto mb-5" style="max-width: 350px; height: 350px">
+            <div class="card border-info mx-auto mb-5" style="max-width: 350px; height: 320px">
                 <div class="card-header text-center" style="background-color: #b9deff">
                     <b><fmt:message key="label.localities"/></b>
                 </div>
@@ -117,7 +127,7 @@
         </div>
 
         <div class="col-md-6">
-            <div class="card mx-auto border-danger mb-5" style="max-width: 350px; height: 350px">
+            <div class="card mx-auto border-danger mb-5" style="max-width: 350px; height: 320px">
                 <div class="card-header text-center" style="background-color: #b9deff">
                     <b><fmt:message key="label.infrastructure"/></b>
                 </div>

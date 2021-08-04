@@ -22,6 +22,15 @@
             background-color: #f6fcff
         }
     </style>
+    <script>
+        var url = "${pageContext.request.contextPath}";
+        $(document).ready(function () {
+            $("#languageSelect").change(function () {
+                var value = $('#languageSelect').val();
+                window.location.href = url + '?sessionLocale=' + value;
+            });
+        });
+    </script>
     <style>
         form.centerField {
             margin-left: auto;
@@ -43,7 +52,7 @@
     <div class="text-center">
         <div class="text-centre">
             <form class="form-inline leftField" name="language" method="post"
-                  action="${pageContext.request.contextPath}?sessionLocale=${selectLang}"
+                  action="${pageContext.request.contextPath}?sessionLocale=${langSelect}"
                   onchange="this.form.submit()">
                 <select class="form-control" id="languageSelect" name="langSelect">
                     <option value="en"
@@ -56,35 +65,18 @@
                     </option>
                 </select>
             </form>
-        <c:if test="${!isChairmen}">
-            <h6><fmt:message key="label.selectChairmen"/>:</h6>
-            <form class="form-inline centerField" name="test" method="post" action="home">
-                <select class="form-control" id="chairmen" name="chairmen" onchange="this.form.submit()">
-                    <c:forEach items="${chairmens}" var="chairmenName">
-                        <option value="${chairmenName}"
-                            ${chairmenName == nameChairmen ? 'selected="selected"' : ''}>${chairmenName}</option>
-                    </c:forEach>
-                </select>
-            </form>
-        </c:if>
+            <c:if test="${!isChairmen}">
+                <h6><fmt:message key="label.selectChairmen"/>:</h6>
+                <form class="form-inline centerField" name="test" method="post" action="home">
+                    <select class="form-control" id="chairmen" name="chairmen" onchange="this.form.submit()">
+                        <c:forEach items="${chairmens}" var="chairmenName">
+                            <option value="${chairmenName}"
+                                ${chairmenName == nameChairmen ? 'selected="selected"' : ''}>${chairmenName}</option>
+                        </c:forEach>
+                    </select>
+                </form>
+            </c:if>
         </div>
-        <%--<div class="text-left">--%>
-        <%--<form class="form-inline" name="language" method="post"--%>
-        <%--action="${pageContext.request.contextPath}?sessionLocale=${selectLang}"--%>
-        <%--onchange="this.form.submit()">--%>
-        <%--<select class="form-control" id="languageSelect" name="langSelect">--%>
-        <%--<option value="en"--%>
-        <%--<c:if test="${selectLang == 'en'}"> selected </c:if>>--%>
-        <%--<fmt:message key="label.lang.en"/>--%>
-        <%--</option>--%>
-        <%--<option value="ru"--%>
-        <%--<c:if test="${selectLang == 'ru'}"> selected </c:if>>--%>
-        <%--<fmt:message key="label.lang.ru"/>--%>
-        <%--</option>--%>
-        <%--</select>--%>
-        <%--</form>--%>
-        <%--</div>--%>
-
     </div>
     <br>
     <div class="text-center">

@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,11 +22,11 @@
 <body>
 <%@include file="include/header.jsp" %>
 <div class="text-center">
-    <h5 style="color: red">У вас нет прав доступа</h5>
+    <h5 style="color: red"><fmt:message key="label.haveNotRules"/></h5>
 </div>
 <br>
 <br>
-<a href="#" onclick="history.back();">Вернуться назад</a>
+<a href="#" onclick="history.back();"><fmt:message key="label.back"/></a>
 
 </body>
 </html>

@@ -66,7 +66,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="role" class="text-info">Status:</label><br>
+                            <label for="role" class="text-info"><fmt:message key="label.status"/>:</label><br>
                             <select id="role" name="role" class="form-control mr-sm-0">
                                 <c:forEach items="${roles}" var="role">
                                     <option value="${role.id}" ${role.id == roleID ? 'selected="selected"' : ''}>

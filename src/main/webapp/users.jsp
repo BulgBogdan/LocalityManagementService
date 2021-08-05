@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row col-md-12 col-md-offset-0">
             <%--<h6 class="text-center"><fmt:message key="label"/>:</h6>--%>
-            <h6 class="text-center">Users:</h6>
+            <h6 class="text-center"><fmt:message key="label.users"/>:</h6>
             <table class="table table-striped table-bordered">
                 <thead style="background-color: #77a4ff">
                 <tr>
@@ -26,10 +26,10 @@
                     <%--<th class="text-center"><fmt:message key="label.population"/></th>--%>
                     <%--<th class="text-center"><fmt:message key="label.type"/></th>--%>
                     <%--<th class="text-center"></th>--%>
-                    <th class="text-center">Username</th>
-                    <th class="text-center">First Name</th>
-                    <th class="text-center">Last Name</th>
-                    <th class="text-center">Role</th>
+                    <th class="text-center"><fmt:message key="label.login"/></th>
+                    <th class="text-center"><fmt:message key="label.firstname"/></th>
+                    <th class="text-center"><fmt:message key="label.lastname"/></th>
+                    <th class="text-center"><fmt:message key="label.role"/></th>
                     <th class="text-center"></th>
                 </tr>
                 </thead>
@@ -73,7 +73,7 @@
         </div>
     </div>
     <c:if test="${confirmDelete}">
-        <p style="color: green">Data deleted</p>
+        <p style="color: green"><fmt:message key="label.delete"/></p>
     </c:if>
     <br>
     <div id="register-link" class="text-center">

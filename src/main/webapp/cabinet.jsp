@@ -186,7 +186,7 @@
                         </div>
                         <c:if test="${correctUsers == true}">
                             <div id="register-link" class="text-right">
-                                <a href="/users" class="text-info">Изменить параметры пользователей</a>
+                                <a href="/users" class="text-info"><fmt:message key="label.changeParameterUser"/></a>
                             </div>
                         </c:if>
                     </form>

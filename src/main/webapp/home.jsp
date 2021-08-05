@@ -91,7 +91,7 @@
                     <b><fmt:message key="label.localities"/></b>
                 </div>
                 <div class="card-body" style="background-color: #d9eeff">
-                    <p class="card-text">В разделе отображена информация о населенных пунктах.</p>
+                    <p class="card-text"><fmt:message key="label.informationLocality"/></p>
                     <c:choose>
                         <c:when test="${isChairmen}">
                             <a href="/locality?nameChairmen=${nameChairmen}" class="btn btn-info btn-md">
@@ -126,7 +126,7 @@
                 <div class="card-body" style="background-color: #d9eeff">
                     <c:choose>
                         <c:when test="${cities.isEmpty()}">
-                            <p>У данного председателя нет населенных пунктов.</p>
+                            <p><fmt:message key="label.dontHaveLocality"/>.</p>
                         </c:when>
                         <c:otherwise>
                             <p><fmt:message key="label.selectChairmen"/>:</p>
@@ -139,7 +139,7 @@
                                     </c:forEach>
                                 </select>
                             </form>
-                            <p class="card-text">В разделе, отображена инфраструктура выбранного населенного пункта.</p>
+                            <p class="card-text"><fmt:message key="label.informationInfrastructure"/>.</p>
                             <br>
                             <c:choose>
                                 <c:when test="${nameCity != null}">

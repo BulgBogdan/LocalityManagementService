@@ -38,7 +38,11 @@ public class CabinetServlet extends HttpServlet {
         User user = userDAO.getByUsername(req.getParameter("oldLogin"));
         req.setAttribute("user", user);
         if (!oldPass.equals(user.getPassword())) {
-            req.setAttribute("errorOldPass", "Неверный пароль");
+            if (req.getSession().getAttribute("lang").equals("ru")) {
+                req.setAttribute("errorOldPass", "Неверный пароль");
+            } else {
+                req.setAttribute("errorOldPass", "Incorrect password");
+            }
             resp.sendRedirect("/cabinet");
             return;
         }
@@ -50,10 +54,18 @@ public class CabinetServlet extends HttpServlet {
             user.setFirstName(firstName);
             user.setLastName(lastName);
             userDAO.create(user);
-            req.setAttribute("confirmEdit", "Данные успешно изменены");
+            if (req.getSession().getAttribute("lang").equals("ru")) {
+                req.setAttribute("confirmEdit", "Данные успешно изменены");
+            } else {
+                req.setAttribute("confirmEdit", "Data changed successfully");
+            }
             req.getRequestDispatcher("cabinet.jsp").forward(req, resp);
         } else {
-            req.setAttribute("passwordError", "Пароли не совпадают");
+            if (req.getSession().getAttribute("lang").equals("ru")) {
+                req.setAttribute("passwordError", "Пароли не совпадают");
+            } else {
+                req.setAttribute("passwordError", "Passwords mismatch");
+            }
             req.getRequestDispatcher("cabinet.jsp").forward(req, resp);
         }
     }

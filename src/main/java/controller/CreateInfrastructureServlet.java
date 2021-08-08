@@ -36,7 +36,11 @@ public class CreateInfrastructureServlet extends HttpServlet {
         Locality locality = localityDAO.getByCityName(cityName);
         req.setAttribute("cityName", cityName);
         if (!CheckInfrastructure.checkFullFields(req)) {
-            req.setAttribute("error", "Заполните все поля");
+            if (req.getSession().getAttribute("lang").equals("ru")) {
+                req.setAttribute("error", "Заполните все поля");
+            } else {
+                req.setAttribute("error", "Put all the fields");
+            }
             CheckInfrastructure.setAttributeInfrastructure(req);
             req.getRequestDispatcher("infrastructure.jsp").forward(req, resp);
             return;

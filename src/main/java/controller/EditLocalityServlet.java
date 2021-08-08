@@ -48,7 +48,11 @@ public class EditLocalityServlet extends HttpServlet {
         req.setAttribute("statusCity", statusLocalities);
         req.setAttribute("chairmenName", userSession);
         if (!CheckLocality.checkFullFields(req)) {
-            req.setAttribute("error", "Заполните все поля");
+            if (req.getSession().getAttribute("lang").equals("ru")) {
+                req.setAttribute("error", "Заполните все поля");
+            } else {
+                req.setAttribute("error", "Put all the fields");
+            }
             CheckLocality.setAttributeLocality(req);
             req.getRequestDispatcher("locality.jsp").forward(req, resp);
             return;

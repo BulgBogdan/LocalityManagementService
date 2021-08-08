@@ -37,7 +37,11 @@ public class RegistrationServlet extends HttpServlet {
         String confirmPassword = req.getParameter("confirmPassword");
         Role userRole = roleDAO.getById(2);
         if (Objects.nonNull(userDAO.getByUsername(login))) {
-            req.setAttribute("loginError", "Логин уже занят");
+            if (req.getSession().getAttribute("lang").equals("ru")) {
+                req.setAttribute("loginError", "Логин уже занят");
+            } else {
+                req.setAttribute("loginError", "Login exists");
+            }
             req.getRequestDispatcher("registration.jsp").forward(req, resp);
             return;
         }
@@ -54,7 +58,11 @@ public class RegistrationServlet extends HttpServlet {
             session.setAttribute("userSession", login);
             resp.sendRedirect("/home");
         } else {
-            req.setAttribute("passwordError", "Пароли не совпадают");
+            if (req.getSession().getAttribute("lang").equals("ru")) {
+                req.setAttribute("passwordError", "Пароли не совпадают");
+            } else {
+                req.setAttribute("passwordError", "Passwords aren't confirm");
+            }
             req.getRequestDispatcher("registration.jsp").forward(req, resp);
         }
     }

@@ -1,6 +1,5 @@
 package controller;
 
-import entity.Locality;
 import repository.LocalityDAOImpl;
 import service.LocalityDAO;
 
@@ -14,7 +13,7 @@ import java.io.IOException;
 @WebServlet("/delete/locality")
 public class DeleteLocalityServlet extends HttpServlet {
 
-    private LocalityDAO localityDAO = new LocalityDAOImpl(Locality.class);
+    private LocalityDAO localityDAO = new LocalityDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

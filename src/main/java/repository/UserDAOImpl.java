@@ -12,8 +12,8 @@ public class UserDAOImpl extends EntityDAO<User> implements UserDAO {
 
     private EntityManager entityManager;
 
-    public UserDAOImpl(Class<User> type) {
-        super(type);
+    public UserDAOImpl() {
+        super(User.class);
     }
 
     @Override

@@ -18,9 +18,9 @@ import java.io.IOException;
 @WebServlet("/create/infrastructure")
 public class CreateInfrastructureServlet extends HttpServlet {
 
-    private LocalityDAO localityDAO = new LocalityDAOImpl(Locality.class);
+    private LocalityDAO localityDAO = new LocalityDAOImpl();
 
-    private InfrastructureDAO infrastructureDAO = new InfrastructureDAOImpl(Infrastructure.class);
+    private InfrastructureDAO infrastructureDAO = new InfrastructureDAOImpl();
 
     private String cityName;
 

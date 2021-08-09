@@ -15,7 +15,7 @@ import java.util.Objects;
 @WebFilter(urlPatterns = {"/edit/user", "/delete/user", "/users"})
 public class AdminFilter implements Filter {
 
-    private UserDAO userDAO = new UserDAOImpl(User.class);
+    private UserDAO userDAO = new UserDAOImpl();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

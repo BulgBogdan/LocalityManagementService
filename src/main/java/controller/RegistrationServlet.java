@@ -19,8 +19,8 @@ import java.util.Objects;
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 
-    private UserDAO userDAO = new UserDAOImpl(User.class);
-    private RoleDAO roleDAO = new RoleDAOImpl(Role.class);
+    private UserDAO userDAO = new UserDAOImpl();
+    private RoleDAO roleDAO = new RoleDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

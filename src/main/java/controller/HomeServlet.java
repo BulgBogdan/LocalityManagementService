@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
 
-    private UserDAO userDAO = new UserDAOImpl(User.class);
+    private UserDAO userDAO = new UserDAOImpl();
 
-    private RoleDAO roleDAO = new RoleDAOImpl(Role.class);
+    private RoleDAO roleDAO = new RoleDAOImpl();
 
     private List<String> getChairmens() {
         Role chairmen = roleDAO.getById(3);

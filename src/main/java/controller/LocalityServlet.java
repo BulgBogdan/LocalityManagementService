@@ -18,7 +18,7 @@ import java.util.List;
 @WebServlet("/locality")
 public class LocalityServlet extends HttpServlet {
 
-    private UserDAO userDAO = new UserDAOImpl(User.class);
+    private UserDAO userDAO = new UserDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

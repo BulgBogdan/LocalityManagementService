@@ -12,8 +12,8 @@ public class LocalityDAOImpl extends EntityDAO<Locality> implements LocalityDAO 
 
     private EntityManager entityManager;
 
-    public LocalityDAOImpl(Class<Locality> type) {
-        super(type);
+    public LocalityDAOImpl() {
+        super(Locality.class);
     }
 
     @Override

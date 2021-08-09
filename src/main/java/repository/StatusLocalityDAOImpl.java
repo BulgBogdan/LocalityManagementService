@@ -5,7 +5,7 @@ import service.StatusLocalityDAO;
 
 public class StatusLocalityDAOImpl extends EntityDAO<StatusLocality> implements StatusLocalityDAO {
 
-    public StatusLocalityDAOImpl(Class<StatusLocality> type) {
-        super(type);
+    public StatusLocalityDAOImpl() {
+        super(StatusLocality.class);
     }
 }

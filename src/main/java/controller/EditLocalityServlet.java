@@ -19,9 +19,9 @@ import java.util.List;
 @WebServlet("/edit/locality")
 public class EditLocalityServlet extends HttpServlet {
 
-    private LocalityDAO localityDAO = new LocalityDAOImpl(Locality.class);
+    private LocalityDAO localityDAO = new LocalityDAOImpl();
 
-    private StatusLocalityDAO statusLocalityDAO = new StatusLocalityDAOImpl(StatusLocality.class);
+    private StatusLocalityDAO statusLocalityDAO = new StatusLocalityDAOImpl();
 
     private List<StatusLocality> statusLocalities;
 

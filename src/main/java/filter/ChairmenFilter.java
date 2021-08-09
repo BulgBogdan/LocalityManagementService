@@ -16,7 +16,7 @@ import java.util.Objects;
         "/delete/locality", "/edit/infrastructure", "/edit/locality"})
 public class ChairmenFilter implements Filter {
 
-    private UserDAO userDAO = new UserDAOImpl(User.class);
+    private UserDAO userDAO = new UserDAOImpl();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

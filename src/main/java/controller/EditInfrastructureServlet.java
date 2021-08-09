@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/edit/infrastructure")
 public class EditInfrastructureServlet extends HttpServlet {
 
-    private InfrastructureDAO infrastructureDAO = new InfrastructureDAOImpl(Infrastructure.class);
+    private InfrastructureDAO infrastructureDAO = new InfrastructureDAOImpl();
 
     private String infrastructureID;
 

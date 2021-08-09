@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 public class CheckChairmen {
 
     public static boolean isChairmen(HttpSession session) {
-        UserDAO userDAO = new UserDAOImpl(User.class);
+        UserDAO userDAO = new UserDAOImpl();
         boolean isChairmen = false;
         String nameUserSession = (String) session.getAttribute("userSession");
         User user = userDAO.getByUsername(nameUserSession);

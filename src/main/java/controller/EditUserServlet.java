@@ -18,8 +18,8 @@ import java.util.List;
 @WebServlet("/edit/user")
 public class EditUserServlet extends HttpServlet {
 
-    private UserDAO userDAO = new UserDAOImpl(User.class);
-    private RoleDAO roleDAO = new RoleDAOImpl(Role.class);
+    private UserDAO userDAO = new UserDAOImpl();
+    private RoleDAO roleDAO = new RoleDAOImpl();
 
     private User user;
 

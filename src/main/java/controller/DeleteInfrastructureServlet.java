@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet("/delete/infrastructure")
 public class DeleteInfrastructureServlet extends HttpServlet {
 
-    private InfrastructureDAO infrastructureDAO = new InfrastructureDAOImpl(Infrastructure.class);
+    private InfrastructureDAO infrastructureDAO = new InfrastructureDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

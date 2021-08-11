@@ -106,9 +106,7 @@
                                     <span class="input-group-text" id="basic-addon2"><i class="fas fa-lock"></i></span>
                                 </div>
                                 <input type="password" name="oldPassword" id="oldPassword" class="form-control"
-                                       value="${user.getPassword()}" aria-label="password"
-                                       aria-describedby="basic-addon1">
-                                <p style="color: red">${errorOldPass}</p>
+                                       aria-label="password" aria-describedby="basic-addon1">
                                 <div class="input-group-append">
                 <span class="input-group-text" onclick="password_show_hide();">
                   <i class="fas fa-eye" id="show_eye"></i>
@@ -144,7 +142,6 @@
                                 </div>
                                 <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
                                        aria-label="password" aria-describedby="basic-addon1">
-                                <p style="color: red">${passwordError}</p>
                                 <div class="input-group-append">
                 <span class="input-group-text" onclick="password_show_hide3();">
                   <i class="fas fa-eye" id="show_eye3"></i>
@@ -176,11 +173,14 @@
                         </div>
 
                         <div class="form-group">
-                            <p style="color: green">${confirmEdit}</p>
                             <input type="submit" name="submit" class="btn btn-info btn-md"
                                    value="<fmt:message key="label.edit"/>">
                         </div>
-
+                        <div class="text-center">
+                            <p style="color: red">${passwordError}</p>
+                            <p style="color: red">${errorOldPass}</p>
+                            <p style="color: green">${confirmEdit}</p>
+                        </div>
                         <div id="register-link" class="text-left">
                             <a href="#" onclick="history.back();"><fmt:message key="label.back"/></a>
                         </div>

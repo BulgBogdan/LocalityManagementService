@@ -78,7 +78,7 @@
     <br>
     <div id="register-link" class="text-center">
         <br>
-        <a href="#" onclick="history.back();"><fmt:message key="label.back"/></a>
+        <a href="/cabinet"><fmt:message key="label.back"/></a>
     </div>
 </main>
 </body>

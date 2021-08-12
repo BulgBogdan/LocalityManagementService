@@ -7,13 +7,13 @@ public class CheckConfirmData {
 
     public static String getAttributeParam(HttpServletRequest req) {
         if (Objects.nonNull(req.getParameter("confirmEdit"))) {
-            return "Данные успешно изменены";
+            return ChooseResources.getMessageResource(req, "label.confirmEdit");
         }
         if (Objects.nonNull(req.getParameter("confirmCreate"))) {
-            return "Данные успешно добавлены";
+            return ChooseResources.getMessageResource(req, "label.confirmCreate");
         }
         if (Objects.nonNull(req.getParameter("confirmDelete"))) {
-            return "Данные успешно удалены";
+            return ChooseResources.getMessageResource(req, "label.confirmDelete");
         }
         return null;
     }

@@ -4,6 +4,7 @@ import entity.Infrastructure;
 import repository.InfrastructureDAOImpl;
 import service.InfrastructureDAO;
 import util.CheckInfrastructure;
+import util.ChooseResources;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,11 +37,9 @@ public class EditInfrastructureServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("cityName", cityName);
         if (!CheckInfrastructure.checkFullFields(req)) {
-            if (req.getSession().getAttribute("lang").equals("ru")) {
-                req.setAttribute("error", "Заполните все поля");
-            } else {
-                req.setAttribute("error", "Put all the fields");
-            }
+            req.setAttribute(
+                    "error",
+                    ChooseResources.getMessageResource(req, "label.emptyFields"));
             CheckInfrastructure.setAttributeInfrastructure(req);
             req.getRequestDispatcher("infrastructure.jsp").forward(req, resp);
         } else {

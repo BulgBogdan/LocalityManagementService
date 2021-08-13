@@ -3,6 +3,7 @@ package controller;
 import entity.User;
 import repository.UserDAOImpl;
 import service.UserDAO;
+import util.ChooseResources;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,12 +39,10 @@ public class CabinetServlet extends HttpServlet {
         User user = userDAO.getByUsername(req.getParameter("oldLogin"));
         req.setAttribute("user", user);
         if (!oldPass.equals(user.getPassword())) {
-            if (req.getSession().getAttribute("lang").equals("ru")) {
-                req.setAttribute("errorOldPass", "Неверный пароль");
-            } else {
-                req.setAttribute("errorOldPass", "Incorrect password");
-            }
-            resp.sendRedirect("/cabinet");
+            req.setAttribute(
+                    "errorOldPass",
+                    ChooseResources.getMessageResource(req, "label.errorPass"));
+            req.getRequestDispatcher("cabinet.jsp").forward(req, resp);
             return;
         }
         if (Objects.nonNull(password) && password.equals(confirmPassword)) {
@@ -53,19 +52,15 @@ public class CabinetServlet extends HttpServlet {
             String lastName = req.getParameter("lastName");
             user.setFirstName(firstName);
             user.setLastName(lastName);
-            userDAO.create(user);
-            if (req.getSession().getAttribute("lang").equals("ru")) {
-                req.setAttribute("confirmEdit", "Данные успешно изменены");
-            } else {
-                req.setAttribute("confirmEdit", "Data changed successfully");
-            }
+            userDAO.update(user);
+            req.setAttribute(
+                    "confirmEdit",
+                    ChooseResources.getMessageResource(req, "label.confirmEdit"));
             req.getRequestDispatcher("cabinet.jsp").forward(req, resp);
         } else {
-            if (req.getSession().getAttribute("lang").equals("ru")) {
-                req.setAttribute("passwordError", "Пароли не совпадают");
-            } else {
-                req.setAttribute("passwordError", "Passwords mismatch");
-            }
+            req.setAttribute(
+                    "passwordError",
+                    ChooseResources.getMessageResource(req, "label.notConfirmPassword"));
             req.getRequestDispatcher("cabinet.jsp").forward(req, resp);
         }
     }

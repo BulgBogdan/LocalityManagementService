@@ -6,6 +6,7 @@ import repository.RoleDAOImpl;
 import repository.UserDAOImpl;
 import service.RoleDAO;
 import service.UserDAO;
+import util.ChooseResources;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,11 +50,9 @@ public class EditUserServlet extends HttpServlet {
         req.setAttribute("user", user);
         req.setAttribute("roles", roles);
         req.setAttribute("roleID", Integer.parseInt(roleId));
-        if (req.getSession().getAttribute("lang").equals("ru")) {
-            req.setAttribute("confirmEdit", "Данные успешно изменены");
-        } else {
-            req.setAttribute("confirmEdit", "Data changed successfully");
-        }
+        req.setAttribute(
+                "confirmEdit",
+                ChooseResources.getMessageResource(req, "label.confirmEdit"));
         req.getRequestDispatcher("user.jsp").forward(req, resp);
     }
 }

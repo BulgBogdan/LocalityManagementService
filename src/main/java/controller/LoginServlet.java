@@ -3,6 +3,7 @@ package controller;
 import entity.User;
 import repository.UserDAOImpl;
 import service.UserDAO;
+import util.ChooseResources;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,11 +48,9 @@ public class LoginServlet extends HttpServlet {
         if (Objects.nonNull(login)) {
             req.setAttribute("login", login);
         }
-        if (req.getSession().getAttribute("lang").equals("ru")) {
-            req.setAttribute("Error", "Неверный логин или пароль");
-        } else {
-            req.setAttribute("Error", "Incorrect login or password");
-        }
+        req.setAttribute(
+                "Error",
+                ChooseResources.getMessageResource(req, "label.errorLoginPass"));
         req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 }

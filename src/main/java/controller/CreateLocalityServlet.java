@@ -10,6 +10,7 @@ import service.LocalityDAO;
 import service.StatusLocalityDAO;
 import service.UserDAO;
 import util.CheckLocality;
+import util.ChooseResources;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,11 +48,9 @@ public class CreateLocalityServlet extends HttpServlet {
         req.setAttribute("statusCity", statusLocalities);
         req.setAttribute("nameChairmen", nameChairmen);
         if (!CheckLocality.checkFullFields(req)) {
-            if (req.getSession().getAttribute("lang").equals("ru")) {
-                req.setAttribute("error", "Заполните все поля");
-            } else {
-                req.setAttribute("error", "Put all the fields");
-            }
+            req.setAttribute(
+                    "error",
+                    ChooseResources.getMessageResource(req, "label.emptyFields"));
             CheckLocality.setAttributeLocality(req);
             req.getRequestDispatcher("locality.jsp").forward(req, resp);
             return;

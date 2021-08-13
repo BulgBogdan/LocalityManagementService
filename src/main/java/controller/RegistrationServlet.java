@@ -6,6 +6,7 @@ import repository.RoleDAOImpl;
 import repository.UserDAOImpl;
 import service.RoleDAO;
 import service.UserDAO;
+import util.ChooseResources;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,11 +38,9 @@ public class RegistrationServlet extends HttpServlet {
         String confirmPassword = req.getParameter("confirmPassword");
         Role userRole = roleDAO.getById(2);
         if (Objects.nonNull(userDAO.getByUsername(login))) {
-            if (req.getSession().getAttribute("lang").equals("ru")) {
-                req.setAttribute("loginError", "Логин уже занят");
-            } else {
-                req.setAttribute("loginError", "Login exists");
-            }
+            req.setAttribute(
+                    "loginError",
+                    ChooseResources.getMessageResource(req, "label.loginBusy"));
             req.getRequestDispatcher("registration.jsp").forward(req, resp);
             return;
         }
@@ -58,11 +57,9 @@ public class RegistrationServlet extends HttpServlet {
             session.setAttribute("userSession", login);
             resp.sendRedirect("/home");
         } else {
-            if (req.getSession().getAttribute("lang").equals("ru")) {
-                req.setAttribute("passwordError", "Пароли не совпадают");
-            } else {
-                req.setAttribute("passwordError", "Passwords aren't confirm");
-            }
+            req.setAttribute(
+                    "passwordError",
+                    ChooseResources.getMessageResource(req, "label.notConfirmPassword"));
             req.getRequestDispatcher("registration.jsp").forward(req, resp);
         }
     }

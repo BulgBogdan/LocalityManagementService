@@ -7,6 +7,7 @@ import repository.LocalityDAOImpl;
 import service.InfrastructureDAO;
 import service.LocalityDAO;
 import util.CheckInfrastructure;
+import util.ChooseResources;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,11 +37,9 @@ public class CreateInfrastructureServlet extends HttpServlet {
         Locality locality = localityDAO.getByCityName(cityName);
         req.setAttribute("cityName", cityName);
         if (!CheckInfrastructure.checkFullFields(req)) {
-            if (req.getSession().getAttribute("lang").equals("ru")) {
-                req.setAttribute("error", "Заполните все поля");
-            } else {
-                req.setAttribute("error", "Put all the fields");
-            }
+            req.setAttribute(
+                    "error",
+                    ChooseResources.getMessageResource(req, "label.emptyFields"));
             CheckInfrastructure.setAttributeInfrastructure(req);
             req.getRequestDispatcher("infrastructure.jsp").forward(req, resp);
             return;

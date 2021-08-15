@@ -5,7 +5,7 @@
          version="4.0">
     <filter>
         <filter-name>CharsetFilter</filter-name>
-        <filter-class>filter.CharsetFilter</filter-class>
+        <filter-class>bulgakov.locality.filter.CharsetFilter</filter-class>
         <init-param>
             <param-name>requestEncoding</param-name>
             <param-value>UTF-8</param-value>

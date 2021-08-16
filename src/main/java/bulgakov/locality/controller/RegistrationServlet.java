@@ -1,12 +1,12 @@
-package controller;
+package bulgakov.locality.controller;
 
-import entity.Role;
-import entity.User;
-import repository.RoleDAOImpl;
-import repository.UserDAOImpl;
-import service.RoleDAO;
-import service.UserDAO;
-import util.ChooseResources;
+import bulgakov.locality.entity.Role;
+import bulgakov.locality.entity.User;
+import bulgakov.locality.service.RoleService;
+import bulgakov.locality.service.UserService;
+import bulgakov.locality.util.ChooseResources;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +18,17 @@ import java.io.IOException;
 import java.util.Objects;
 
 @WebServlet("/registration")
+@Component
 public class RegistrationServlet extends HttpServlet {
 
-    private UserDAO userDAO = new UserDAOImpl();
-    private RoleDAO roleDAO = new RoleDAOImpl();
+    private UserService userService;
+    private RoleService roleService;
+
+    @Autowired
+    public RegistrationServlet(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,8 +43,8 @@ public class RegistrationServlet extends HttpServlet {
         String lastName = req.getParameter("lastName");
         setAttributes(req, login, password, firstName, lastName);
         String confirmPassword = req.getParameter("confirmPassword");
-        Role userRole = roleDAO.getById(2);
-        if (Objects.nonNull(userDAO.getByUsername(login))) {
+        Role userRole = roleService.getById(2);
+        if (Objects.nonNull(userService.getByUsername(login))) {
             req.setAttribute(
                     "loginError",
                     ChooseResources.getMessageResource(req, "label.loginBusy"));
@@ -52,7 +59,7 @@ public class RegistrationServlet extends HttpServlet {
                     .lastName(lastName)
                     .role(userRole)
                     .build();
-            userDAO.create(user);
+            userService.create(user);
             HttpSession session = req.getSession();
             session.setAttribute("userSession", login);
             resp.sendRedirect("/home");

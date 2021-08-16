@@ -1,13 +1,13 @@
-package controller;
+package bulgakov.locality.controller;
 
-import entity.Infrastructure;
-import entity.Locality;
-import repository.InfrastructureDAOImpl;
-import repository.LocalityDAOImpl;
-import service.InfrastructureDAO;
-import service.LocalityDAO;
-import util.CheckInfrastructure;
-import util.ChooseResources;
+import bulgakov.locality.entity.Infrastructure;
+import bulgakov.locality.entity.Locality;
+import bulgakov.locality.service.InfrastructureService;
+import bulgakov.locality.service.LocalityService;
+import bulgakov.locality.util.CheckInfrastructure;
+import bulgakov.locality.util.ChooseResources;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,13 +17,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/create/infrastructure")
+@Component
 public class CreateInfrastructureServlet extends HttpServlet {
 
-    private LocalityDAO localityDAO = new LocalityDAOImpl();
+    private LocalityService localityService;
 
-    private InfrastructureDAO infrastructureDAO = new InfrastructureDAOImpl();
+    private InfrastructureService infrastructureService;
 
     private String cityName;
+
+    @Autowired
+    public CreateInfrastructureServlet(LocalityService localityService, InfrastructureService infrastructureService) {
+        this.localityService = localityService;
+        this.infrastructureService = infrastructureService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,7 +41,7 @@ public class CreateInfrastructureServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Locality locality = localityDAO.getByCityName(cityName);
+        Locality locality = localityService.getByCityName(cityName);
         req.setAttribute("cityName", cityName);
         if (!CheckInfrastructure.checkFullFields(req)) {
             req.setAttribute(
@@ -46,7 +53,7 @@ public class CreateInfrastructureServlet extends HttpServlet {
         } else {
             Infrastructure infrastructure = CheckInfrastructure.checkInfrastructure(new Infrastructure(), req);
             infrastructure.setLocality(locality);
-            infrastructureDAO.create(infrastructure);
+            infrastructureService.create(infrastructure);
         }
         resp.sendRedirect("/infrastructure?cityName=" + cityName + "&confirmCreate=true");
     }

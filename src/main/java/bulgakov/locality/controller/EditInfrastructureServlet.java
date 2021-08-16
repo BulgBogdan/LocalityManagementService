@@ -1,10 +1,11 @@
-package controller;
+package bulgakov.locality.controller;
 
-import entity.Infrastructure;
-import repository.InfrastructureDAOImpl;
-import service.InfrastructureDAO;
-import util.CheckInfrastructure;
-import util.ChooseResources;
+import bulgakov.locality.entity.Infrastructure;
+import bulgakov.locality.service.InfrastructureService;
+import bulgakov.locality.util.CheckInfrastructure;
+import bulgakov.locality.util.ChooseResources;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,18 +15,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/edit/infrastructure")
+@Component
 public class EditInfrastructureServlet extends HttpServlet {
 
-    private InfrastructureDAO infrastructureDAO = new InfrastructureDAOImpl();
+    private InfrastructureService infrastructureService;
 
     private String infrastructureID;
 
     private String cityName;
 
+    @Autowired
+    public EditInfrastructureServlet(InfrastructureService infrastructureService) {
+        this.infrastructureService = infrastructureService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         infrastructureID = req.getParameter("infrastructureID");
-        Infrastructure infrastructure = infrastructureDAO.getById(Integer.parseInt(infrastructureID));
+        Infrastructure infrastructure = infrastructureService.getById(Integer.parseInt(infrastructureID));
         cityName = infrastructure.getLocality().getName();
         req.setAttribute("infrastructure", infrastructure);
         req.setAttribute("infrastructureID", infrastructureID);
@@ -43,8 +50,8 @@ public class EditInfrastructureServlet extends HttpServlet {
             CheckInfrastructure.setAttributeInfrastructure(req);
             req.getRequestDispatcher("infrastructure.jsp").forward(req, resp);
         } else {
-            Infrastructure infrastructure = infrastructureDAO.getById(Integer.parseInt(infrastructureID));
-            infrastructureDAO.update(CheckInfrastructure.checkInfrastructure(infrastructure, req));
+            Infrastructure infrastructure = infrastructureService.getById(Integer.parseInt(infrastructureID));
+            infrastructureService.update(CheckInfrastructure.checkInfrastructure(infrastructure, req));
             req.setAttribute("infrastructure", infrastructure);
             resp.sendRedirect("/infrastructure?cityName=" + cityName + "&confirmEdit=true");
         }

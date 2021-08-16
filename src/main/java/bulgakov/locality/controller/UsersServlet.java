@@ -1,8 +1,9 @@
-package controller;
+package bulgakov.locality.controller;
 
-import entity.User;
-import repository.UserDAOImpl;
-import service.UserDAO;
+import bulgakov.locality.entity.User;
+import bulgakov.locality.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,13 +14,19 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/users")
+@Component
 public class UsersServlet extends HttpServlet {
 
-    private UserDAO userDAO = new UserDAOImpl();
+    private UserService userService;
+
+    @Autowired
+    public UsersServlet(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> users = userDAO.getAll();
+        List<User> users = userService.getAll();
         req.setAttribute("users", users);
         req.getRequestDispatcher("users.jsp").forward(req, resp);
     }

@@ -1,9 +1,10 @@
-package controller;
+package bulgakov.locality.controller;
 
-import entity.User;
-import repository.UserDAOImpl;
-import service.UserDAO;
-import util.ChooseResources;
+import bulgakov.locality.entity.User;
+import bulgakov.locality.service.UserService;
+import bulgakov.locality.util.ChooseResources;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,15 +16,21 @@ import java.io.IOException;
 import java.util.Objects;
 
 @WebServlet("/cabinet")
+@Component
 public class CabinetServlet extends HttpServlet {
 
-    private UserDAO userDAO = new UserDAOImpl();
+    private UserService userService;
+
+    @Autowired
+    public CabinetServlet(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         String login = (String) session.getAttribute("userSession");
-        User user = userDAO.getByUsername(login);
+        User user = userService.getByUsername(login);
         req.setAttribute("user", user);
         if (user.getRole().getId() == 1) {
             req.setAttribute("correctUsers", true);
@@ -36,7 +43,7 @@ public class CabinetServlet extends HttpServlet {
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
         String oldPass = req.getParameter("oldPassword");
-        User user = userDAO.getByUsername(req.getParameter("oldLogin"));
+        User user = userService.getByUsername(req.getParameter("oldLogin"));
         req.setAttribute("user", user);
         if (!oldPass.equals(user.getPassword())) {
             req.setAttribute(
@@ -52,7 +59,7 @@ public class CabinetServlet extends HttpServlet {
             String lastName = req.getParameter("lastName");
             user.setFirstName(firstName);
             user.setLastName(lastName);
-            userDAO.update(user);
+            userService.update(user);
             req.setAttribute(
                     "confirmEdit",
                     ChooseResources.getMessageResource(req, "label.confirmEdit"));

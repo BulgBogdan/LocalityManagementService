@@ -1,13 +1,13 @@
-package controller;
+package bulgakov.locality.controller;
 
-import entity.Locality;
-import entity.Role;
-import entity.User;
-import repository.RoleDAOImpl;
-import repository.UserDAOImpl;
-import service.RoleDAO;
-import service.UserDAO;
-import util.CheckChairmen;
+import bulgakov.locality.entity.Locality;
+import bulgakov.locality.entity.Role;
+import bulgakov.locality.entity.User;
+import bulgakov.locality.service.RoleService;
+import bulgakov.locality.service.UserService;
+import bulgakov.locality.util.CheckChairmen;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,19 +21,26 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @WebServlet("/home")
+@Component
 public class HomeServlet extends HttpServlet {
 
-    private UserDAO userDAO = new UserDAOImpl();
+    private UserService userService;
 
-    private RoleDAO roleDAO = new RoleDAOImpl();
+    private RoleService roleService;
+
+    @Autowired
+    public HomeServlet(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     private List<String> getChairmens() {
-        Role chairmen = roleDAO.getById(3);
+        Role chairmen = roleService.getById(3);
         return chairmen.getUsers().stream().map(User::getUsername).distinct().collect(Collectors.toList());
     }
 
     private List<String> getCities(String chairmenName) {
-        User chairmen = userDAO.getByUsername(chairmenName);
+        User chairmen = userService.getByUsername(chairmenName);
         List<String> cities = new ArrayList<>();
         for (Locality locality : chairmen.getLocalities()) {
             cities.add(locality.getName());

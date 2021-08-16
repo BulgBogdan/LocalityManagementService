@@ -1,16 +1,14 @@
-package controller;
+package bulgakov.locality.controller;
 
-import entity.Locality;
-import entity.StatusLocality;
-import entity.User;
-import repository.LocalityDAOImpl;
-import repository.StatusLocalityDAOImpl;
-import repository.UserDAOImpl;
-import service.LocalityDAO;
-import service.StatusLocalityDAO;
-import service.UserDAO;
-import util.CheckLocality;
-import util.ChooseResources;
+import bulgakov.locality.entity.Locality;
+import bulgakov.locality.entity.StatusLocality;
+import bulgakov.locality.entity.User;
+import bulgakov.locality.service.LocalityService;
+import bulgakov.locality.service.StatusLocalityService;
+import bulgakov.locality.service.UserService;
+import bulgakov.locality.util.CheckLocality;
+import bulgakov.locality.util.ChooseResources;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,23 +19,30 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/create/locality")
+@Component
 public class CreateLocalityServlet extends HttpServlet {
 
-    private LocalityDAO localityDAO = new LocalityDAOImpl();
+    private LocalityService localityService;
 
-    private StatusLocalityDAO statusLocalityDAO = new StatusLocalityDAOImpl();
+    private StatusLocalityService statusLocalityService;
 
-    private UserDAO userDAO = new UserDAOImpl();
+    private UserService userService;
 
     private String nameChairmen;
 
     private List<StatusLocality> statusLocalities;
 
+    public CreateLocalityServlet(LocalityService localityService, StatusLocalityService statusLocalityService, UserService userService) {
+        this.localityService = localityService;
+        this.statusLocalityService = statusLocalityService;
+        this.userService = userService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         nameChairmen = (String) req.getSession().getAttribute("userSession");
         req.setAttribute("nameChairmen", nameChairmen);
-        statusLocalities = statusLocalityDAO.getAll();
+        statusLocalities = statusLocalityService.getAll();
         req.setAttribute("statusCity", statusLocalities);
         req.getRequestDispatcher("locality.jsp").forward(req, resp);
     }
@@ -55,12 +60,12 @@ public class CreateLocalityServlet extends HttpServlet {
             req.getRequestDispatcher("locality.jsp").forward(req, resp);
             return;
         } else {
-            User user = userDAO.getByUsername(nameChairmen);
+            User user = userService.getByUsername(nameChairmen);
             Locality locality = CheckLocality.checkLocality(new Locality(), req);
             locality.setUser(user);
-            locality.setStatusLocality(statusLocalityDAO.getById(statusID));
-            localityDAO.create(locality);
-            resp.sendRedirect("/locality?nameChairmen=" + nameChairmen + "&confirmCreate=true");
+            locality.setStatusLocality(statusLocalityService.getById(statusID));
+            localityService.create(locality);
+            resp.sendRedirect("/bulgakov/locality" + nameChairmen + "&confirmCreate=true");
         }
     }
 }

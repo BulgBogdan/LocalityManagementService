@@ -16,4 +16,45 @@
         <filter-name>CharsetFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>bulgakov.locality.filter.AdminFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/edit/user</url-pattern>
+        <url-pattern>/delete/user</url-pattern>
+        <url-pattern>/users</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>bulgakov.locality.filter.AuthFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/locality</url-pattern>
+        <url-pattern>/infrastructure</url-pattern>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/cabinet</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>ChairmenFilter</filter-name>
+        <filter-class>bulgakov.locality.filter.ChairmenFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ChairmenFilter</filter-name>
+        <url-pattern>/create/infrastructure</url-pattern>
+        <url-pattern>/create/locality</url-pattern>
+        <url-pattern>/delete/infrastructure</url-pattern>
+        <url-pattern>/delete/locality</url-pattern>
+        <url-pattern>/edit/infrastructure</url-pattern>
+        <url-pattern>/edit/locality</url-pattern>
+    </filter-mapping>
+
 </web-app>

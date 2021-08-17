@@ -79,7 +79,7 @@
     </script>
 </head>
 <body>
-<%@include file="include/header.jsp" %>
+<%@include file="../include/header.jsp" %>
 <div>
     <h3 class="text-center text-white pt-5"></h3>
     <div class="container">

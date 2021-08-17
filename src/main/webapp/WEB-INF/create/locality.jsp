@@ -17,14 +17,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
             integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
             crossorigin="anonymous"></script>
-    <style>
-        body {
-            background-color: #f6fcff
-        }
-    </style>
 </head>
 <body>
-<%@include file="..//include/header.jsp" %>
+<%@include file="../include/header.jsp" %>
 <div>
     <div class="container">
         <div id="singUp-row" class="row justify-content-center align-items-center">
@@ -47,9 +42,8 @@
                             <select class="form-control mr-sm-0" id="statusLocal" name="statusLocal">
                                 <c:forEach items="${statusCity}" var="status">
                                     <option value="${status.getId()}"
-                                        ${status.getId() == locality.getStatusLocality().getId() ? 'selected="selected"' : ''}>
-                                            ${status.getStatus()}
-                                    </option>
+                                        ${status == statusCity.get(0) ? 'selected="selected"' : ''}>
+                                            ${status.getStatus()}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -57,11 +51,11 @@
                         <div class="form-group">
                             <p style="color: red">${error}</p>
                             <input type="submit" name="submit" class="btn btn-info btn-md"
-                                   value="<fmt:message key="label.edit"/>">
+                                   value="<fmt:message key="label.create"/>">
                         </div>
 
                         <div id="register-link" class="text-left">
-                            <a href="/locality?nameChairmen=${chairmenName}"><fmt:message key="label.back"/></a>
+                            <a href="/locality?nameChairmen=${nameChairmen}"><fmt:message key="label.back"/></a>
                         </div>
                     </form>
                 </div>

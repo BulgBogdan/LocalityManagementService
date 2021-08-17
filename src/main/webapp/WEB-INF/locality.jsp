@@ -6,47 +6,47 @@
 <fmt:setBundle basename="language"/>
 <html>
 <head>
-    <title>Infrastructure</title>
+    <title>Locality</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<%@include file="include/header.jsp" %>
+<%@include file="../include/header.jsp" %>
 
 <main class="container">
     <div class="container">
         <div class="row col-md-12 col-md-offset-0">
-            <h6 class="text-center"><fmt:message key="label.infrastructure"/> ${cityName}:</h6>
+            <h6 class="text-center"><fmt:message key="label.localities"/>:</h6>
             <table class="table table-striped table-bordered">
                 <thead style="background-color: #77a4ff">
                 <tr>
                     <th class="text-center"><fmt:message key="label.title"/></th>
-                    <th class="text-center"><fmt:message key="label.square"/></th>
-                    <th class="text-center"><fmt:message key="label.floors"/></th>
-                    <th class="text-center"><fmt:message key="label.persons"/></th>
+                    <th class="text-center"><fmt:message key="label.population"/></th>
+                    <th class="text-center"><fmt:message key="label.type"/></th>
                     <th class="text-center"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:choose>
-                    <c:when test="${infrastructures.isEmpty()}">
+                    <c:when test="${localities.isEmpty()}">
                         <p>Ничего нет</p>
                     </c:when>
                     <c:otherwise>
-                        <c:forEach items="${infrastructures}" var="infrastructure">
+                        <c:forEach items="${localities}" var="locality">
                             <tr>
-                                <td class="text-center">${infrastructure.getName()}</td>
-                                <td class="text-center">${infrastructure.getSquare()}</td>
-                                <td class="text-center">${infrastructure.getFloors()}</td>
-                                <td class="text-center">${infrastructure.getPersons()} <fmt:message
-                                        key="label.persons"/></td>
+                                <td class="text-center">
+                                    <a href="infrastructure?cityName=${locality.getName()}">${locality.getName()}</a>
+                                </td>
+                                <td class="text-center">${locality.getPopulation()}</td>
+                                <td class="text-center">${locality.getStatusLocality().getStatus()}</td>
+
                                 <c:choose>
                                     <c:when test="${isChairmen}">
-                                        <c:url value="/edit/infrastructure?infrastructureID=${infrastructure.getId()}"
-                                               var="editInfrastructure"/>
+                                        <c:url value="/edit/locality?localityID=${locality.getId()}"
+                                               var="editLocality"/>
                                         <td class="text-center"><a class='btn btn-info btn-xs'
-                                                                   href="${editInfrastructure}">
+                                                                   href="${editLocality}">
                                             <svg width="1em" height="1em"
                                                  viewBox="0 0 16 16"
                                                  class="bi bi-pencil-fill"
@@ -56,9 +56,9 @@
                                                       d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                                             </svg>
                                         </a>
-                                            <c:url value="/delete/infrastructure?infrastructureID=${infrastructure.getId()}"
-                                                   var="delInfrastructure"/>
-                                            <a href="${delInfrastructure}" class="btn btn-danger btn-xs">
+                                            <c:url value="/delete/locality?localityID=${locality.getId()}"
+                                                   var="delLocality"/>
+                                            <a href="${delLocality}" class="btn btn-danger btn-xs">
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16"
                                                      class="bi bi-trash"
                                                      fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -74,14 +74,16 @@
                                     </c:otherwise>
                                 </c:choose>
                             </tr>
-                        </c:forEach> </c:otherwise>
+                        </c:forEach>
+                    </c:otherwise>
                 </c:choose>
                 </tbody>
             </table>
         </div>
         <c:if test="${isChairmen}">
-            <a href="create/infrastructure?cityName=${cityName}"
-               class="btn btn-primary btn-xs pull-right"><b>+</b> <fmt:message key="label.addInfrastructure"/></a>
+            <a href="create/locality" class="btn btn-primary btn-xs pull-right">
+                <b>+</b> <fmt:message key="label.addLocality"/>
+            </a>
         </c:if>
     </div>
     <div class="text-center">

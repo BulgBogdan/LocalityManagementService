@@ -20,7 +20,7 @@
     </style>
 </head>
 <body>
-<%@include file="include/header.jsp" %>
+<%@include file="../include/header.jsp" %>
 <div class="text-center">
     <h5 style="color: red"><fmt:message key="label.haveNotRules"/></h5>
 </div>

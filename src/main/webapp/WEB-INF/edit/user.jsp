@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-<%@include file="..//include/header.jsp" %>
+<%@include file="../include/header.jsp" %>
 <div>
     <div class="container">
         <div id="singUp-row" class="row justify-content-center align-items-center">

@@ -46,7 +46,7 @@
     </style>
 </head>
 <body>
-<%@include file="include/header.jsp" %>
+<%@include file="../include/header.jsp" %>
 
 <main class="col offset-md-0 bg-faded py-0">
     <div class="text-center">

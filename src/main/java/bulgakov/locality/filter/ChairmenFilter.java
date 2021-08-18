@@ -6,15 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
-@WebFilter(urlPatterns = {"/create/infrastructure", "/create/locality", "/delete/infrastructure",
-        "/delete/locality", "/edit/infrastructure", "/edit/locality"})
 @Component
 public class ChairmenFilter implements Filter {
 

@@ -1,13 +1,14 @@
 package bulgakov.locality.filter;
 
+import org.springframework.stereotype.Component;
+
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/locality", "/infrastructure", "/home", "/cabinet"})
+@Component
 public class AuthFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

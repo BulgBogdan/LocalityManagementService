@@ -5,18 +5,19 @@ import bulgakov.locality.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpSession;
-
 @Component
 public class CheckChairmen {
 
-    @Autowired
     private static UserService userService;
 
-    public static boolean isChairmen(HttpSession session) {
+    @Autowired
+    public CheckChairmen(UserService userService) {
+        this.userService = userService;
+    }
+
+    public static boolean isChairmen(String userSession) {
         boolean isChairmen = false;
-        String nameUserSession = (String) session.getAttribute("userSession");
-        User user = userService.getByUsername(nameUserSession);
+        User user = userService.getByUsername(userSession);
         if (user.getRole().getId() == 3) {
             isChairmen = true;
         }

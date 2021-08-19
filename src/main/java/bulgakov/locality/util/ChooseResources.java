@@ -1,13 +1,11 @@
 package bulgakov.locality.util;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ChooseResources {
 
-    private static Locale getLanguage(HttpServletRequest request) {
-        String lang = request.getSession().getAttribute("lang").toString();
+    private static Locale getLanguage(String lang) {
         if (lang.equals("ru")) {
             return new Locale("ru");
         } else {
@@ -15,8 +13,8 @@ public class ChooseResources {
         }
     }
 
-    public static String getMessageResource(HttpServletRequest request, String labelName) {
-        ResourceBundle bundle = ResourceBundle.getBundle("language", ChooseResources.getLanguage(request));
+    public static String getMessageResource(String lang, String labelName) {
+        ResourceBundle bundle = ResourceBundle.getBundle("language", ChooseResources.getLanguage(lang));
         return String.valueOf(bundle.getObject(labelName));
     }
 }

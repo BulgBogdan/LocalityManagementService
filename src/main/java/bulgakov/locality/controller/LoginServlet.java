@@ -4,60 +4,68 @@ import bulgakov.locality.entity.User;
 import bulgakov.locality.service.UserService;
 import bulgakov.locality.util.ChooseResources;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.Objects;
 
-@WebServlet("/login")
-@Component
+@Controller
+@SessionAttributes(value = {"lang", "userSession"})
 public class LoginServlet extends HttpServlet {
 
     private UserService userService;
+
+    private ModelAndView modelAndView = new ModelAndView();
+
+    @ModelAttribute("userSession")
+    public String userSession() {
+        return "";
+    }
 
     @Autowired
     public LoginServlet(UserService userService) {
         this.userService = userService;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        String sessionUser = (String) session.getAttribute("userSession");
-        if (Objects.nonNull(sessionUser)) {
-            User user = userService.getByUsername(sessionUser);
-            req.setAttribute("login", user.getUsername());
-            req.setAttribute("pass", user.getPassword());
+    @GetMapping("/login")
+    public ModelAndView getLogin(@ModelAttribute("userSession") String userSession) {
+        if (!ObjectUtils.isEmpty(userSession)) {
+            User user = userService.getByUsername(userSession);
+            modelAndView.addObject("login", user.getUsername());
+            modelAndView.addObject("pass", user.getPassword());
         }
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        modelAndView.setViewName("login");
+        return modelAndView;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("check_username");
-        String password = req.getParameter("check_password");
+    @PostMapping("/login")
+    public ModelAndView postLogin(@ModelAttribute("check_username") String login,
+                                  @ModelAttribute("check_password") String password,
+                                  @ModelAttribute("userSession") String userSession,
+                                  @ModelAttribute("lang") String lang) {
         User user = userService.getByUsername(login);
         if (Objects.nonNull(user)) {
             if (user.getPassword().equals(password)) {
-                if (Objects.isNull(req.getSession().getAttribute("userSession"))) {
-                    req.getSession().setAttribute("userSession", login);
+                if (ObjectUtils.isEmpty(userSession)) {
+                    modelAndView.addObject("userSession", login);
                 }
-                resp.sendRedirect("home");
-                return;
+                modelAndView.setViewName("home");
+                return modelAndView;
             }
         }
-        if (Objects.nonNull(login)) {
-            req.setAttribute("login", login);
+        if (!ObjectUtils.isEmpty(login)) {
+            modelAndView.addObject("login", login);
         }
-        req.setAttribute(
-                "Error",
-                ChooseResources.getMessageResource(req, "label.errorLoginPass"));
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        modelAndView.addObject(
+                "error",
+                ChooseResources.getMessageResource(lang, "label.errorLoginPass"));
+        modelAndView.setViewName("login");
+        return modelAndView;
     }
 }

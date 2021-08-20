@@ -7,26 +7,28 @@ import bulgakov.locality.service.RoleService;
 import bulgakov.locality.service.UserService;
 import bulgakov.locality.util.CheckChairmen;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
-@WebServlet("/home")
-@Component
+@Controller
+@SessionAttributes(value = {"lang", "userSession"})
 public class HomeServlet extends HttpServlet {
 
     private UserService userService;
 
     private RoleService roleService;
+
+    private ModelAndView modelAndView = new ModelAndView();
 
     @Autowired
     public HomeServlet(UserService userService, RoleService roleService) {
@@ -48,44 +50,48 @@ public class HomeServlet extends HttpServlet {
         return cities;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userSession = (String) req.getSession().getAttribute("userSession");
-        req.setAttribute("selectLang", req.getSession().getAttribute("lang"));
-        if (CheckChairmen.isChairmen(req.getSession())) {
-            req.setAttribute("isChairmen", true);
-            req.setAttribute("cities", getCities(userSession));
-            req.setAttribute("nameChairmen", userSession);
+    @GetMapping("/home")
+    public ModelAndView getHome(@ModelAttribute("userSession") String userSession,
+                                @ModelAttribute("lang") String lang,
+                                @ModelAttribute("chairmen") String chairmen) {
+        modelAndView.addObject("selectLang", lang);
+        if (CheckChairmen.isChairmen(userSession)) {
+            modelAndView.addObject("isChairmen", true);
+            modelAndView.addObject("cities", getCities(userSession));
+            modelAndView.addObject("nameChairmen", userSession);
         } else {
-            req.setAttribute("chairmens", getChairmens());
-            if (Objects.isNull(req.getParameter("chairmen"))) {
-                req.setAttribute("cities", getCities(getChairmens().get(0)));
+            modelAndView.addObject("chairmens", getChairmens());
+            if (ObjectUtils.isEmpty(chairmen)) {
+                modelAndView.addObject("cities", getCities(getChairmens().get(0)));
             }
         }
-        req.getRequestDispatcher("home.jsp").forward(req, resp);
+        modelAndView.setViewName("home");
+        return modelAndView;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String city = req.getParameter("city");
-        String chairmen = req.getParameter("chairmen");
-        req.setAttribute("selectLang", req.getSession().getAttribute("lang"));
-        req.setAttribute("isChairmen", CheckChairmen.isChairmen(req.getSession()));
-        if (Objects.nonNull(city)) {
-            req.setAttribute("nameCity", city);
+    @PostMapping("/home")
+    public ModelAndView postHome(@ModelAttribute("city") String city,
+                                 @ModelAttribute("chairmen") String chairmen,
+                                 @ModelAttribute("userSession") String userSession,
+                                 @ModelAttribute("lang") String lang) {
+        modelAndView.addObject("selectLang", lang);
+        modelAndView.addObject("isChairmen", CheckChairmen.isChairmen(userSession));
+        if (!ObjectUtils.isEmpty(city)) {
+            modelAndView.addObject("nameCity", city);
         } else {
             if (!getCities(chairmen).isEmpty()) {
-                req.setAttribute("nameCity", getCities(chairmen).get(0));
+                modelAndView.addObject("nameCity", getCities(chairmen).get(0));
             }
         }
-        if (Objects.isNull(chairmen)) {
-            req.setAttribute("nameChairmen", getChairmens().get(0));
-            req.setAttribute("cities", getCities(getChairmens().get(0)));
+        if (ObjectUtils.isEmpty(chairmen)) {
+            modelAndView.addObject("nameChairmen", getChairmens().get(0));
+            modelAndView.addObject("cities", getCities(getChairmens().get(0)));
         } else {
-            req.setAttribute("cities", getCities(chairmen));
-            req.setAttribute("nameChairmen", chairmen);
+            modelAndView.addObject("cities", getCities(chairmen));
+            modelAndView.addObject("nameChairmen", chairmen);
         }
-        req.setAttribute("chairmens", getChairmens());
-        req.getRequestDispatcher("home.jsp").forward(req, resp);
+        modelAndView.addObject("chairmens", getChairmens());
+        modelAndView.setViewName("home");
+        return modelAndView;
     }
 }

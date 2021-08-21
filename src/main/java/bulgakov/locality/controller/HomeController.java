@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServlet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 @SessionAttributes(value = {"lang", "userSession"})
-public class HomeServlet extends HttpServlet {
+public class HomeController {
 
     private UserService userService;
 
@@ -31,7 +30,7 @@ public class HomeServlet extends HttpServlet {
     private ModelAndView modelAndView = new ModelAndView();
 
     @Autowired
-    public HomeServlet(UserService userService, RoleService roleService) {
+    public HomeController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }

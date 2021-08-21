@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServlet;
 import java.util.Objects;
 
 @Controller
 @SessionAttributes(value = {"lang", "userSession"})
-public class LoginServlet extends HttpServlet {
+public class LoginController {
 
     private UserService userService;
 
@@ -29,7 +28,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Autowired
-    public LoginServlet(UserService userService) {
+    public LoginController(UserService userService) {
         this.userService = userService;
     }
 
@@ -55,7 +54,7 @@ public class LoginServlet extends HttpServlet {
                 if (ObjectUtils.isEmpty(userSession)) {
                     modelAndView.addObject("userSession", login);
                 }
-                modelAndView.setViewName("home");
+                modelAndView.setViewName("redirect:/home");
                 return modelAndView;
             }
         }

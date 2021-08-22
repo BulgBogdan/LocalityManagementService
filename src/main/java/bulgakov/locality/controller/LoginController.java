@@ -3,29 +3,25 @@ package bulgakov.locality.controller;
 import bulgakov.locality.entity.User;
 import bulgakov.locality.service.UserService;
 import bulgakov.locality.util.ChooseResources;
+import bulgakov.locality.util.LanguageCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 @Controller
-@SessionAttributes(value = {"lang", "userSession"})
+//@SessionAttributes(value = "lang")
 public class LoginController {
 
     private UserService userService;
 
     private ModelAndView modelAndView = new ModelAndView();
-
-    @ModelAttribute("userSession")
-    public String userSession() {
-        return "";
-    }
 
     @Autowired
     public LoginController(UserService userService) {
@@ -33,9 +29,9 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public ModelAndView getLogin(@ModelAttribute("userSession") String userSession) {
-        if (!ObjectUtils.isEmpty(userSession)) {
-            User user = userService.getByUsername(userSession);
+    public ModelAndView getLogin(HttpServletRequest request) {
+        if (Objects.nonNull(request.getSession().getAttribute("userSession"))) {
+            User user = userService.getByUsername(String.valueOf(request.getSession().getAttribute("userSession")));
             modelAndView.addObject("login", user.getUsername());
             modelAndView.addObject("pass", user.getPassword());
         }
@@ -44,16 +40,16 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ModelAndView postLogin(@ModelAttribute("check_username") String login,
-                                  @ModelAttribute("check_password") String password,
-                                  @ModelAttribute("userSession") String userSession,
-                                  @ModelAttribute("lang") String lang) {
+    public ModelAndView postLogin(HttpServletRequest request,
+                                  @ModelAttribute("check_username") String login,
+                                  @ModelAttribute("check_password") String password) {
         User user = userService.getByUsername(login);
         if (Objects.nonNull(user)) {
             if (user.getPassword().equals(password)) {
-                if (ObjectUtils.isEmpty(userSession)) {
-                    modelAndView.addObject("userSession", login);
+                if (ObjectUtils.isEmpty(request.getSession().getAttribute("userSession"))) {
+                    request.getSession().setAttribute("userSession", login);
                 }
+                request.getSession().setAttribute("lang", LanguageCheck.getLanguageSession(request));
                 modelAndView.setViewName("redirect:/home");
                 return modelAndView;
             }
@@ -61,9 +57,8 @@ public class LoginController {
         if (!ObjectUtils.isEmpty(login)) {
             modelAndView.addObject("login", login);
         }
-        modelAndView.addObject(
-                "error",
-                ChooseResources.getMessageResource(lang, "label.errorLoginPass"));
+        modelAndView.addObject("error", ChooseResources.getMessageResource(
+                LanguageCheck.getLanguageSession(request), "label.errorLoginPass"));
         modelAndView.setViewName("login");
         return modelAndView;
     }

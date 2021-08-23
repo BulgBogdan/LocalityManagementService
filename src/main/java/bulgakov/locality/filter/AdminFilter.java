@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Objects;
 
 @Component
 public class AdminFilter implements Filter {
@@ -35,7 +34,7 @@ public class AdminFilter implements Filter {
         HttpSession session = req.getSession();
         String userSessionName = (String) session.getAttribute("userSession");
         User user = userService.getByUsername(userSessionName);
-        if ((Objects.nonNull(session)) && (session.getAttribute("userSession") != null)) {
+        if (session.getAttribute("userSession") != null) {
             if (isRoleAdmin(user)) {
                 chain.doFilter(request, response);
             } else {

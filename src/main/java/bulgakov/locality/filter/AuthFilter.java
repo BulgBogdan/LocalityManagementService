@@ -1,6 +1,7 @@
 package bulgakov.locality.filter;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 @Component
 public class AuthFilter implements Filter {
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -21,7 +23,7 @@ public class AuthFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
-        if ((session != null) && (session.getAttribute("userSession") != null)) {
+        if (!ObjectUtils.isEmpty(session.getAttribute("userSession"))) {
             chain.doFilter(request, response);
         } else {
             res.sendRedirect("/login");

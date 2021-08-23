@@ -1,19 +1,16 @@
 package bulgakov.locality.util;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
-
 public class CheckConfirmData {
 
-    public static String getAttributeParam(HttpServletRequest req) {
-        if (Objects.nonNull(req.getParameter("confirmEdit"))) {
-            return ChooseResources.getMessageResource(req, "label.confirmEdit");
+    public static String getAttributeParam(String editData, String lang) {
+        if (editData.equals("confirmEdit")) {
+            return ChooseResources.getMessageResource(lang, "label.confirmEdit");
         }
-        if (Objects.nonNull(req.getParameter("confirmCreate"))) {
-            return ChooseResources.getMessageResource(req, "label.confirmCreate");
+        if (editData.equals("confirmCreate")) {
+            return ChooseResources.getMessageResource(lang, "label.confirmCreate");
         }
-        if (Objects.nonNull(req.getParameter("confirmDelete"))) {
-            return ChooseResources.getMessageResource(req, "label.confirmDelete");
+        if (editData.equals("confirmDelete")) {
+            return ChooseResources.getMessageResource(lang, "label.confirmDelete");
         }
         return null;
     }

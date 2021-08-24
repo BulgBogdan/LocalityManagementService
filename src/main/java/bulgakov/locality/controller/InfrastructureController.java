@@ -6,6 +6,7 @@ import bulgakov.locality.util.CheckChairmen;
 import bulgakov.locality.util.CheckConfirmData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,11 +30,13 @@ public class InfrastructureController {
 
     @GetMapping("/infrastructure")
     public ModelAndView getInfrastructure(@RequestParam(name = "cityName") String cityName,
-                                          @RequestParam(name = "editData") String nameParam,
+                                          @RequestParam(name = "editData", required = false) String nameParam,
                                           @ModelAttribute("userSession") String userSession,
                                           @ModelAttribute("lang") String lang) {
         List<Infrastructure> infrastructures = localityService.getByCityName(cityName).getInfrastructures();
-        modelAndView.addObject("confirmData", CheckConfirmData.getAttributeParam(nameParam, lang));
+        if (!ObjectUtils.isEmpty(nameParam)) {
+            modelAndView.addObject("confirmData", CheckConfirmData.getAttributeParam(nameParam, lang));
+        }
         modelAndView.addObject("cityName", cityName);
         modelAndView.addObject("infrastructures", infrastructures);
         modelAndView.addObject("isChairmen", CheckChairmen.isChairmen(userSession));

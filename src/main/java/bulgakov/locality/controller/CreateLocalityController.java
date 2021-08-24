@@ -10,7 +10,10 @@ import bulgakov.locality.util.CheckLocality;
 import bulgakov.locality.util.ChooseResources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,13 +24,9 @@ import java.util.List;
 public class CreateLocalityController {
 
     private LocalityService localityService;
-
     private StatusLocalityService statusLocalityService;
-
     private UserService userService;
-
     private String nameChairmen;
-    private int statusLocal;
     private ModelAndView modelAndView = new ModelAndView();
     private List<StatusLocality> statusLocalities;
 
@@ -39,10 +38,9 @@ public class CreateLocalityController {
     }
 
     @GetMapping("/create/locality")
-    public ModelAndView getCreateInfrastructure(@ModelAttribute(name = "userSession") String userSession,
-                                                @RequestParam(name = "statusLocal") String statusLocal) {
+    public ModelAndView getCreateInfrastructure(@ModelAttribute(name = "userSession") String userSession) {
         this.nameChairmen = userSession;
-        this.statusLocal = Integer.parseInt(statusLocal);
+//        this.statusLocal = Integer.parseInt(statusLocal);
         modelAndView.addObject("nameChairmen", nameChairmen);
         statusLocalities = statusLocalityService.getAll();
         modelAndView.addObject("statusCity", statusLocalities);
@@ -52,6 +50,7 @@ public class CreateLocalityController {
 
     @PostMapping("/create/locality")
     public ModelAndView postCreateInfrastructure(@ModelAttribute("lang") String lang,
+                                                 @ModelAttribute("statusLocal") String statusLocal,
                                                  HttpServletRequest request) {
         modelAndView.addObject("statusCity", statusLocalities);
         modelAndView.addObject("nameChairmen", nameChairmen);
@@ -64,7 +63,7 @@ public class CreateLocalityController {
             User user = userService.getByUsername(nameChairmen);
             Locality locality = CheckLocality.checkLocality(new Locality(), request);
             locality.setUser(user);
-            locality.setStatusLocality(statusLocalityService.getById(statusLocal));
+            locality.setStatusLocality(statusLocalityService.getById(Integer.parseInt(statusLocal)));
             localityService.create(locality);
             modelAndView.setViewName("redirect:/locality" + nameChairmen + "&confirmCreate=true");
         }

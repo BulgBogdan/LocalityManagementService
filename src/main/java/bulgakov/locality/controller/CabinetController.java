@@ -18,8 +18,6 @@ public class CabinetController {
 
     private UserService userService;
 
-    private ModelAndView modelAndView = new ModelAndView();
-
     @Autowired
     public CabinetController(UserService userService) {
         this.userService = userService;
@@ -27,6 +25,7 @@ public class CabinetController {
 
     @GetMapping("/cabinet")
     public ModelAndView getCabinet(@ModelAttribute("userSession") String userSession) {
+        ModelAndView modelAndView = new ModelAndView();
         User user = userService.getByUsername(userSession);
         modelAndView.addObject("user", user);
         if (user.getRole().getId() == 1) {
@@ -44,6 +43,7 @@ public class CabinetController {
                                     @ModelAttribute("firstName") String firstName,
                                     @ModelAttribute("lastName") String lastName,
                                     @ModelAttribute("lang") String lang) {
+        ModelAndView modelAndView = new ModelAndView();
         User user = userService.getByUsername(login);
         modelAndView.addObject("user", user);
         if (!oldPassword.equals(user.getPassword())) {

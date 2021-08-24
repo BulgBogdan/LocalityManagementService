@@ -10,12 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes(value = "userSession")
 public class LogoutController {
 
-    private ModelAndView modelAndView = new ModelAndView();
-
     @GetMapping("/logout")
     public ModelAndView getLogout(SessionStatus sessionStatus) {
+        ModelAndView modelAndView = new ModelAndView();
         sessionStatus.setComplete();
-        modelAndView.addObject("userSession", "");
+//        modelAndView.addObject("userSession", "");
         modelAndView.setViewName("redirect:/login");
         return modelAndView;
     }

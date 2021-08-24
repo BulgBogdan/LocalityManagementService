@@ -1,6 +1,7 @@
 package bulgakov.locality.service;
 
 import bulgakov.locality.entity.Locality;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface LocalityService {
     void delete(int id);
 
     List<Locality> getAll();
+
+    Page<Locality> getLocalities(Integer userId, int page, int pageSize);
 }

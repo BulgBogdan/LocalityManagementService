@@ -20,11 +20,9 @@ import java.util.List;
 public class EditLocalityController extends HttpServlet {
 
     private LocalityService localityService;
-
     private StatusLocalityService statusLocalityService;
 
     private List<StatusLocality> statusLocalities;
-
     private String localityID;
     private ModelAndView modelAndView = new ModelAndView();
     private String userSession;

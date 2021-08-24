@@ -21,8 +21,6 @@ public class LoginController {
 
     private UserService userService;
 
-    private ModelAndView modelAndView = new ModelAndView();
-
     @Autowired
     public LoginController(UserService userService) {
         this.userService = userService;
@@ -30,6 +28,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public ModelAndView getLogin(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
         if (Objects.nonNull(request.getSession().getAttribute("userSession"))) {
             User user = userService.getByUsername(String.valueOf(request.getSession().getAttribute("userSession")));
             modelAndView.addObject("login", user.getUsername());
@@ -43,6 +42,7 @@ public class LoginController {
     public ModelAndView postLogin(HttpServletRequest request,
                                   @ModelAttribute("check_username") String login,
                                   @ModelAttribute("check_password") String password) {
+        ModelAndView modelAndView = new ModelAndView();
         User user = userService.getByUsername(login);
         if (Objects.nonNull(user)) {
             if (user.getPassword().equals(password)) {

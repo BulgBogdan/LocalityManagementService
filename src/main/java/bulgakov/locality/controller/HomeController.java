@@ -24,10 +24,7 @@ import java.util.stream.Collectors;
 public class HomeController {
 
     private UserService userService;
-
     private RoleService roleService;
-
-    private ModelAndView modelAndView = new ModelAndView();
 
     @Autowired
     public HomeController(UserService userService, RoleService roleService) {
@@ -53,6 +50,7 @@ public class HomeController {
     public ModelAndView getHome(@ModelAttribute("userSession") String userSession,
                                 @ModelAttribute("lang") String lang,
                                 @ModelAttribute("chairmen") String chairmen) {
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("selectLang", lang);
         if (CheckChairmen.isChairmen(userSession)) {
             modelAndView.addObject("isChairmen", true);
@@ -73,6 +71,7 @@ public class HomeController {
                                  @ModelAttribute("chairmen") String chairmen,
                                  @ModelAttribute("userSession") String userSession,
                                  @ModelAttribute("lang") String lang) {
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("selectLang", lang);
         modelAndView.addObject("isChairmen", CheckChairmen.isChairmen(userSession));
         if (!ObjectUtils.isEmpty(city)) {

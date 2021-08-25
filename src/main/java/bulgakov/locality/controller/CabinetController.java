@@ -3,9 +3,9 @@ package bulgakov.locality.controller;
 import bulgakov.locality.entity.User;
 import bulgakov.locality.service.UserService;
 import bulgakov.locality.util.ChooseResources;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,14 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @SessionAttributes(value = {"lang", "userSession"})
+@RequiredArgsConstructor
 public class CabinetController {
 
-    private UserService userService;
-
-    @Autowired
-    public CabinetController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @GetMapping("/cabinet")
     public ModelAndView getCabinet(@ModelAttribute("userSession") String userSession) {
@@ -52,7 +48,7 @@ public class CabinetController {
             modelAndView.setViewName("cabinet");
             return modelAndView;
         }
-        if (!ObjectUtils.isEmpty(password) && password.equals(confirmPassword)) {
+        if (StringUtils.isNotBlank(password) && password.equals(confirmPassword)) {
             user.setUsername(user.getUsername());
             user.setPassword(password);
             user.setFirstName(firstName);
@@ -68,5 +64,4 @@ public class CabinetController {
         }
         return modelAndView;
     }
-
 }

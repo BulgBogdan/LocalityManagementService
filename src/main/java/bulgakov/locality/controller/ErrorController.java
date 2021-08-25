@@ -7,10 +7,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ErrorController {
 
-    private ModelAndView modelAndView = new ModelAndView();
-
     @GetMapping("/error")
     public ModelAndView getError() {
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("error");
         return modelAndView;
     }

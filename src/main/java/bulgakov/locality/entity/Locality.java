@@ -34,6 +34,6 @@ public class Locality implements Serializable {
     @JoinColumn(name = "status_id")
     private StatusLocality statusLocality;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "locality")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "locality")
     private List<Infrastructure> infrastructures;
 }

@@ -6,9 +6,9 @@ import bulgakov.locality.service.RoleService;
 import bulgakov.locality.service.UserService;
 import bulgakov.locality.util.ChooseResources;
 import bulgakov.locality.util.LanguageCheck;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,20 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 @Controller
+@RequiredArgsConstructor
 public class RegistrationController {
 
-    private UserService userService;
-    private RoleService roleService;
-    private ModelAndView modelAndView = new ModelAndView();
-
-    @Autowired
-    public RegistrationController(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
-    }
+    private final UserService userService;
+    private final RoleService roleService;
 
     @GetMapping("/registration")
     public ModelAndView getRegistration() {
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("registration");
         return modelAndView;
     }
@@ -43,7 +38,8 @@ public class RegistrationController {
                                   @ModelAttribute("confirmPassword") String confirmPassword,
                                   @ModelAttribute("firstName") String firstName,
                                   @ModelAttribute("lastName") String lastName) {
-        setAttributes(login, password, firstName, lastName);
+        ModelAndView modelAndView = new ModelAndView();
+        setAttributes(login, password, firstName, lastName, modelAndView);
         Role userRole = roleService.getById(2);
         request.getSession().setAttribute("lang", LanguageCheck.getLanguageSession(request));
         if (Objects.nonNull(userService.getByUsername(login))) {
@@ -52,7 +48,7 @@ public class RegistrationController {
             modelAndView.setViewName("registration");
             return modelAndView;
         }
-        if (!ObjectUtils.isEmpty(password) && password.equals(confirmPassword)) {
+        if (StringUtils.isNotBlank(password) && password.equals(confirmPassword)) {
             User user = User.builder()
                     .username(login)
                     .password(password)
@@ -71,18 +67,18 @@ public class RegistrationController {
         return modelAndView;
     }
 
-    private void setAttributes(String login, String password, String firstName, String lastName) {
-        if (!ObjectUtils.isEmpty(login)) {
-            modelAndView.addObject("login", login);
+    private void setAttributes(String login, String password, String firstName, String lastName, ModelAndView mav) {
+        if (StringUtils.isNotBlank(login)) {
+            mav.addObject("login", login);
         }
-        if (!ObjectUtils.isEmpty(password)) {
-            modelAndView.addObject("password", password);
+        if (StringUtils.isNotBlank(password)) {
+            mav.addObject("password", password);
         }
-        if (!ObjectUtils.isEmpty(firstName)) {
-            modelAndView.addObject("firstName", firstName);
+        if (StringUtils.isNotBlank(firstName)) {
+            mav.addObject("firstName", firstName);
         }
-        if (!ObjectUtils.isEmpty(lastName)) {
-            modelAndView.addObject("lastName", lastName);
+        if (StringUtils.isNotBlank(lastName)) {
+            mav.addObject("lastName", lastName);
         }
     }
 }

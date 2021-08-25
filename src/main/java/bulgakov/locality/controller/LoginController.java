@@ -4,9 +4,9 @@ import bulgakov.locality.entity.User;
 import bulgakov.locality.service.UserService;
 import bulgakov.locality.util.ChooseResources;
 import bulgakov.locality.util.LanguageCheck;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,15 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 @Controller
-//@SessionAttributes(value = "lang")
+@RequiredArgsConstructor
 public class LoginController {
 
-    private UserService userService;
-
-    @Autowired
-    public LoginController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @GetMapping("/login")
     public ModelAndView getLogin(HttpServletRequest request) {
@@ -46,7 +41,7 @@ public class LoginController {
         User user = userService.getByUsername(login);
         if (Objects.nonNull(user)) {
             if (user.getPassword().equals(password)) {
-                if (ObjectUtils.isEmpty(request.getSession().getAttribute("userSession"))) {
+                if (StringUtils.isBlank((String) request.getSession().getAttribute("userSession"))) {
                     request.getSession().setAttribute("userSession", login);
                 }
                 request.getSession().setAttribute("lang", LanguageCheck.getLanguageSession(request));
@@ -54,7 +49,7 @@ public class LoginController {
                 return modelAndView;
             }
         }
-        if (!ObjectUtils.isEmpty(login)) {
+        if (StringUtils.isNotBlank(login)) {
             modelAndView.addObject("login", login);
         }
         modelAndView.addObject("error", ChooseResources.getMessageResource(

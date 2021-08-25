@@ -14,9 +14,7 @@ public class LogoutController {
     public ModelAndView getLogout(SessionStatus sessionStatus) {
         ModelAndView modelAndView = new ModelAndView();
         sessionStatus.setComplete();
-//        modelAndView.addObject("userSession", "");
         modelAndView.setViewName("redirect:/login");
         return modelAndView;
     }
-
 }

@@ -12,7 +12,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<%@include file="../include/header.jsp" %>
+<%@include file="include/header.jsp" %>
 
 <main class="container">
     <div class="container">
@@ -39,8 +39,8 @@
                                 <td class="text-center">${infrastructure.getName()}</td>
                                 <td class="text-center">${infrastructure.getSquare()}</td>
                                 <td class="text-center">${infrastructure.getFloors()}</td>
-                                <td class="text-center">${infrastructure.getPersons()} <fmt:message
-                                        key="label.persons"/></td>
+                                <td class="text-center">${infrastructure.getPersons()}
+                                    <fmt:message key="label.person"/></td>
                                 <c:choose>
                                     <c:when test="${isChairmen}">
                                         <c:url value="/edit/infrastructure?infrastructureID=${infrastructure.getId()}"
@@ -85,7 +85,7 @@
         </c:if>
     </div>
     <div class="text-center">
-        <p style="color: green">${confirmData}</p>
+        <p style="font-size:18px; font-weight: 600; color: green">${confirmData}</p>
     </div>
     <br>
     <div id="register-link" class="text-center">

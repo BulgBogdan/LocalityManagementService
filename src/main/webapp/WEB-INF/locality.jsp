@@ -12,7 +12,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<%@include file="../include/header.jsp" %>
+<%@include file="include/header.jsp" %>
 
 <main class="container">
     <div class="container">
@@ -86,8 +86,58 @@
             </a>
         </c:if>
     </div>
+    <div class="container text-center">
+        <c:if test="${pagesCount > 1}">
+            <c:set value="disabled" var="disabled"/>
+            <c:set value="" var="active"/>
+            <c:url value="/locality" var="url">
+                <c:param name="page" value="1"/>
+            </c:url>
+            <a class="${page == 1 ? disabled : active}" href="${url}">
+                &nbsp<span style="color: darkblue">первая</span> &nbsp
+            </a>
+
+            <c:if test="${pagesCount <= 5}">
+                <c:set var="begin" value="1"/>
+                <c:set var="end" value="${pagesCount}"/>
+            </c:if>
+            <c:if test="${pagesCount > 5}">
+                <c:choose>
+                    <c:when test="${page < 3}">
+                        <c:set var="begin" value="1"/>
+                        <c:set var="end" value="5"/>
+                    </c:when>
+                    <c:when test="${page > pagesCount - 2}">
+                        <c:set var="begin" value="${pagesCount - 4}"/>
+                        <c:set var="end" value="${pagesCount}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="begin" value="${page - 2}"/>
+                        <c:set var="end" value="${page + 2}"/>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+
+            <c:forEach begin="${begin}" end="${end}" step="1" varStatus="i">
+                <c:url value="/locality" var="url">
+                    <c:param name="page" value="${i.index}"/>
+                </c:url>
+                <c:set value="current-page" var="current"/>
+                <c:set value="" var="perspective"/>
+                <a class="${page == i.index ? current : perspective}" style="color: darkblue"
+                   href="${url}"> ${i.index} </a>
+            </c:forEach>
+
+            <c:url value="/locality" var="url">
+                <c:param name="page" value="${pagesCount}"/>
+            </c:url>
+            <a class="${page == pagesCount ? disabled : active}" href="${url}">
+                &nbsp<span style="color: darkblue">последняя</span>
+            </a>
+        </c:if>
+    </div>
     <div class="text-center">
-        <p style="color: green">${confirmData}</p>
+        <p style="font-size:18px; font-weight: 600; color: green">${confirmData}</p>
     </div>
     <br>
     <div id="register-link" class="text-center">

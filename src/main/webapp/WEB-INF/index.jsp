@@ -42,6 +42,5 @@
                 key="label.lang.ru"/></a>
     </div>
 </div>
-<%--<h2><a href="home">Начать</a></h2>--%>
 </body>
 </html>

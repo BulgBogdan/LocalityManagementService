@@ -70,21 +70,23 @@
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <h3 class="text-center text-info"><fmt:message key="label.registration"/></h3>
+                    <h3 class="text-center" style="color: darkblue"><fmt:message key="label.registration"/></h3>
                     <form method="POST" action="registration">
                         <div class="form-group">
-                            <label for="login" class="text-info"><fmt:message key="label.login"/>:</label><br>
+                            <label for="login" style="font-weight: 600; font-size: 18px; color: darkblue">
+                                <fmt:message key="label.login"/>:</label><br>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                                 </div>
                                 <input type="text" name="login" id="login" class="form-control" value="${login}"
                                        aria-label="Username" aria-describedby="basic-addon1"/>
-                                <p style="color: red">${loginError}</p>
                             </div>
+                            <p style="font-weight: 600; font-size: 18px; color: red">${loginError}</p>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="text-info"><fmt:message key="label.password"/>:</label><br>
+                            <label for="password" style="font-weight: 600; font-size: 18px; color: darkblue">
+                                <fmt:message key="label.password"/>:</label><br>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon2"><i class="fas fa-lock"></i></span>
@@ -102,8 +104,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="confirmPassword" class="text-info"><fmt:message
-                                    key="label.confirmPassword"/>:</label><br>
+                            <label for="confirmPassword" style="font-weight: 600; font-size: 18px; color: darkblue">
+                                <fmt:message key="label.confirmPassword"/>:</label><br>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon3"><i
@@ -112,19 +114,20 @@
                                 <input type="password" name="confirmPassword" id="confirmPassword"
                                        class="form-control"
                                        aria-label="password" aria-describedby="basic-addon2">
-                                <p style="color: red">${passwordError}</p>
                                 <div class="input-group-append">
                 <span class="input-group-text" onclick="password_show_hide2();">
                   <i class="fas fa-eye" id="show_eye2"></i>
                   <i class="fas fa-eye-slash d-none" id="hide_eye2"></i>
                 </span>
+
                                 </div>
                             </div>
                         </div>
+                        <p style="font-weight: 600; font-size: 18px; color: red">${passwordError}</p>
 
                         <div class="form-group">
-                            <label for="firstName" class="text-info"><fmt:message
-                                    key="label.firstname"/>:</label><br>
+                            <label for="firstName" style="font-weight: 600; font-size: 18px; color: darkblue">
+                                <fmt:message key="label.firstname"/>:</label><br>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon4"><i class="fas fa-user"></i></span>
@@ -134,7 +137,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="lastName" class="text-info"><fmt:message key="label.lastname"/>:</label><br>
+                            <label for="lastName" style="font-weight: 600; font-size: 18px; color: darkblue">
+                                <fmt:message key="label.lastname"/>:</label><br>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon5"><i class="fas fa-user"></i></span>
@@ -149,7 +153,8 @@
                                    value="<fmt:message key="label.input"/>">
                         </div>
                         <div id="register-link" class="text-right">
-                            <a href="/login" class="text-info"><fmt:message key="label.authorization"/></a>
+                            <a href="/login">
+                                <fmt:message key="label.authorization"/></a>
                         </div>
                     </form>
                 </div>

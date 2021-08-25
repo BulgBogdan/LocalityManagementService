@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -25,30 +26,35 @@
             <div id="singUp-column" class="col-md-6">
                 <div id="singUp-box" class="col-md-12">
 
-                    <form method="POST" action="infrastructure">
-                        <h3 class="text-center text-info"><fmt:message key="label.infrastructure"/></h3>
+                    <form:form method="POST" action="infrastructure" modelAttribute="infrastructure">
+                        <h3 class="text-center" style="color: darkblue">
+                            <fmt:message key="label.infrastructure"/></h3>
                         <div class="form-group">
-                            <label for="name" class="text-info"><fmt:message key="label.title"/>:</label><br>
+                            <label for="name" style="font-size:18px; font-weight: 600; color: darkblue">
+                                <fmt:message key="label.title"/>:</label><br>
                             <input type="text" name="name" id="name"
-                                   value="${name}" class="form-control">
+                                   value="${infrastructure.name}" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="square" class="text-info"><fmt:message key="label.square"/>(м):</label><br>
+                            <label for="square" style="font-size:18px; font-weight: 600; color: darkblue">
+                                <fmt:message key="label.square"/>(м):</label><br>
                             <input type="number" name="square" id="square"
-                                   value="${square}" class="form-control">
+                                   value="${infrastructure.square}" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="floors" class="text-info"><fmt:message key="label.floors"/>:</label><br>
+                            <label for="floors" style="font-size:18px; font-weight: 600; color: darkblue">
+                                <fmt:message key="label.floors"/>:</label><br>
                             <input type="number" name="floors" id="floors"
-                                   value="${floors}" class="form-control">
+                                   value="${infrastructure.floors}" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="persons" class="text-info"><fmt:message key="label.persons"/>:</label><br>
+                            <label for="persons" style="font-size:18px; font-weight: 600; color: darkblue">
+                                <fmt:message key="label.persons"/>:</label><br>
                             <input type="number" name="persons" id="persons"
-                                   value="${persons}" class="form-control">
+                                   value="${infrastructure.persons}" class="form-control">
                         </div>
 
-                        <p style="color: red">${error}</p>
+                        <p style="font-size:18px; font-weight: 600; color: red">${error}</p>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md"
                                    value="<fmt:message key="label.create"/>">
@@ -57,7 +63,7 @@
                         <div id="register-link" class="text-left">
                             <a href="/infrastructure?cityName=${cityName}"><fmt:message key="label.back"/></a>
                         </div>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>

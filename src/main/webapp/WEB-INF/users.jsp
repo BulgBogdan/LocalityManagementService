@@ -12,20 +12,17 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<%@include file="../include/header.jsp" %>
+<%@include file="include/header.jsp" %>
 <body>
 <main class="container">
     <div class="container">
         <div class="row col-md-12 col-md-offset-0">
-            <%--<h6 class="text-center"><fmt:message key="label"/>:</h6>--%>
-            <h6 class="text-center"><fmt:message key="label.users"/>:</h6>
+            <div class="text-center">
+                <h5 class="text-center"><fmt:message key="label.users"/>:</h5>
+            </div>
             <table class="table table-striped table-bordered">
                 <thead style="background-color: #77a4ff">
                 <tr>
-                    <%--<th class="text-center"><fmt:message key="label.title"/></th>--%>
-                    <%--<th class="text-center"><fmt:message key="label.population"/></th>--%>
-                    <%--<th class="text-center"><fmt:message key="label.type"/></th>--%>
-                    <%--<th class="text-center"></th>--%>
                     <th class="text-center"><fmt:message key="label.login"/></th>
                     <th class="text-center"><fmt:message key="label.firstname"/></th>
                     <th class="text-center"><fmt:message key="label.lastname"/></th>
@@ -72,13 +69,13 @@
             </table>
         </div>
     </div>
-    <c:if test="${confirmDelete}">
-        <p style="color: green"><fmt:message key="label.delete"/></p>
-    </c:if>
+    <div class="text-center">
+        <p style="color: green; font-size: 18px; font-weight: 600">${confirmData}</p>
+    </div>
     <br>
     <div id="register-link" class="text-center">
         <br>
-        <a href="/cabinet"><fmt:message key="label.back"/></a>
+        <a href="/cabinet" style="color: darkblue"><fmt:message key="label.back"/></a>
     </div>
 </main>
 </body>

@@ -40,6 +40,8 @@ insert into locality_management.user (username, password, first_name, last_name,
 values ('user', 'user', 'ivan', 'ivanov', 2);
 insert into locality_management.user (username, password, first_name, last_name, role_id)
 values ('chairmen', 'chairmen', 'ivan', 'ivanov', 3);
+insert into locality_management.user (username, password, first_name, last_name, role_id)
+values ('chairmen2', 'chairmen2', 'petr', 'petrov', 3);
 
 DROP TABLE IF EXISTS `locality_management`.`status_locality`;
 CREATE TABLE IF NOT EXISTS `locality_management`.`status_locality`
@@ -82,6 +84,14 @@ insert into locality_management.locality (name, population, user_id, status_id)
 values ('gomel', 500000, 3, 1);
 insert into locality_management.locality (name, population, user_id, status_id)
 values ('mogilev', 400000, 3, 1);
+insert into locality_management.locality (name, population, user_id, status_id)
+values ('sluck', 30000, 3, 2);
+insert into locality_management.locality (name, population, user_id, status_id)
+values ('molodechno', 20000, 3, 2);
+insert into locality_management.locality (name, population, user_id, status_id)
+values ('town', 10000, 3, 2);
+insert into locality_management.locality (name, population, user_id, status_id)
+values ('village', 10000, 3, 3);
 
 DROP TABLE IF EXISTS `locality_management`.`infrastructure`;
 CREATE TABLE IF NOT EXISTS `locality_management`.`infrastructure`
@@ -119,4 +129,16 @@ values ('school mogilev', 2000, 3, 150, 3);
 insert into locality_management.infrastructure (name, square_meters, floors, persons, locality_id)
 values ('sad mogilev', 2000, 3, 150, 3);
 insert into locality_management.infrastructure (name, square_meters, floors, persons, locality_id)
-values ('hospital mogilev', 2000, 3, 150, 2);
+values ('hospital mogilev', 2000, 3, 150, 3);
+
+insert into locality_management.infrastructure (name, square_meters, floors, persons, locality_id)
+values ('hospital', 2000, 3, 150, 4);
+
+insert into locality_management.infrastructure (name, square_meters, floors, persons, locality_id)
+values ('hospital', 2000, 3, 150, 5);
+
+insert into locality_management.infrastructure (name, square_meters, floors, persons, locality_id)
+values ('hospital', 2000, 3, 150, 6);
+
+insert into locality_management.infrastructure (name, square_meters, floors, persons, locality_id)
+values ('hospital', 2000, 3, 150, 7);

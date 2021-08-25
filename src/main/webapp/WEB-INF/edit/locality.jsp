@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -17,11 +18,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
             integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
             crossorigin="anonymous"></script>
-    <style>
-        body {
-            background-color: #f6fcff
-        }
-    </style>
 </head>
 <body>
 <%@include file="../include/header.jsp" %>
@@ -31,31 +27,34 @@
             <div id="singUp-column" class="col-md-6">
                 <div id="singUp-box" class="col-md-12">
 
-                    <form method="POST" action="locality">
-                        <h3 class="text-center text-info"><fmt:message key="label.location"/></h3>
+                    <form:form method="POST" action="locality" modelAttribute="locality">
+                        <h3 class="text-center" style="color: darkblue">
+                            <fmt:message key="label.location"/></h3>
                         <div class="form-group">
-                            <label for="name" class="text-info"><fmt:message key="label.title"/>:</label><br>
+                            <label for="name" style="font-size:18px; font-weight: 600; color: darkblue">
+                                <fmt:message key="label.title"/>:</label><br>
                             <input type="text" name="name" id="name"
-                                   value="${locality.getName()}" class="form-control">
+                                   value="${locality.name}" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="population" class="text-info"><fmt:message key="label.population"/>:</label><br>
+                            <label for="population" style="font-size:18px; font-weight: 600; color: darkblue">
+                                <fmt:message key="label.population"/>:</label><br>
                             <input type="number" name="population" id="population"
-                                   value="${locality.getPopulation()}" class="form-control">
+                                   value="${locality.population}" class="form-control">
                         </div>
                         <div>
                             <select class="form-control mr-sm-0" id="statusLocal" name="statusLocal">
                                 <c:forEach items="${statusCity}" var="status">
-                                    <option value="${status.getId()}"
-                                        ${status.getId() == locality.getStatusLocality().getId() ? 'selected="selected"' : ''}>
-                                            ${status.getStatus()}
+                                    <option value="${status.id}"
+                                        ${status.id == locality.statusLocality.id ? 'selected="selected"' : ''}>
+                                            ${status.status}
                                     </option>
                                 </c:forEach>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <p style="color: red">${error}</p>
+                            <p style="font-size:18px; font-weight: 600; color: red">${error}</p>
                             <input type="submit" name="submit" class="btn btn-info btn-md"
                                    value="<fmt:message key="label.edit"/>">
                         </div>
@@ -63,7 +62,7 @@
                         <div id="register-link" class="text-left">
                             <a href="/locality?nameChairmen=${chairmenName}"><fmt:message key="label.back"/></a>
                         </div>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>

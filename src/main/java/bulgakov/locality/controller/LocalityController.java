@@ -28,7 +28,7 @@ public class LocalityController {
     private final LocalityService localityService;
     private final StatusLocalityService statusLocalityService;
 
-    private String nameChairmen;
+    private String chairmenName;
     private Integer localityID;
     private List<StatusLocality> statusLocalities;
 
@@ -39,10 +39,13 @@ public class LocalityController {
                                     @ModelAttribute("userSession") String userSession,
                                     @ModelAttribute("lang") String lang) {
         ModelAndView modelAndView = new ModelAndView();
+        if (StringUtils.isNotBlank(nameChairmen)) {
+            chairmenName = nameChairmen;
+        }
         int pageSize = 5;
         User user;
-        if (StringUtils.isNotBlank(nameChairmen)) {
-            user = userService.getByUsername(nameChairmen);
+        if (StringUtils.isNotBlank(chairmenName)) {
+            user = userService.getByUsername(chairmenName);
         } else {
             user = userService.getByUsername(userSession);
         }
@@ -64,9 +67,9 @@ public class LocalityController {
     @GetMapping("/create/locality")
     public ModelAndView getCreateInfrastructure(@ModelAttribute(name = "userSession") String userSession) {
         ModelAndView modelAndView = new ModelAndView();
-        this.nameChairmen = userSession;
+        chairmenName = userSession;
         statusLocalities = statusLocalityService.getAll();
-        modelAndView.addObject("nameChairmen", nameChairmen);
+        modelAndView.addObject("nameChairmen", chairmenName);
         modelAndView.addObject("locality", new Locality());
         modelAndView.addObject("statusCity", statusLocalities);
         modelAndView.setViewName("/create/locality");
@@ -83,10 +86,10 @@ public class LocalityController {
             modelAndView.addObject("error",
                     ChooseResources.getMessageResource(lang, "label.emptyFields"));
             modelAndView.addObject("locality", locality);
-            modelAndView.addObject("chairmenName", nameChairmen);
+            modelAndView.addObject("chairmenName", chairmenName);
             modelAndView.setViewName("/create/locality");
         } else {
-            User user = userService.getByUsername(nameChairmen);
+            User user = userService.getByUsername(chairmenName);
             locality.setUser(user);
             locality.setStatusLocality(statusLocalityService.getById(statusLocal));
             localityService.create(locality);
@@ -100,12 +103,12 @@ public class LocalityController {
                                         @RequestParam(name = "localityID") Integer localID) {
         ModelAndView modelAndView = new ModelAndView();
         localityID = localID;
-        this.nameChairmen = userSession;
+        chairmenName = userSession;
         statusLocalities = statusLocalityService.getAll();
         Locality locality = localityService.getById(localID);
         modelAndView.addObject("locality", locality);
         modelAndView.addObject("statusCity", statusLocalities);
-        modelAndView.addObject("chairmenName", nameChairmen);
+        modelAndView.addObject("chairmenName", chairmenName);
         modelAndView.setViewName("edit/locality");
         return modelAndView;
     }
@@ -122,7 +125,7 @@ public class LocalityController {
             modelAndView.addObject("error",
                     ChooseResources.getMessageResource(lang, "label.emptyFields"));
             modelAndView.addObject("locality", editedLocality);
-            modelAndView.addObject("chairmenName", nameChairmen);
+            modelAndView.addObject("chairmenName", chairmenName);
             modelAndView.setViewName("edit/locality");
         } else {
             locality.setStatusLocality(statusLocalityService.getById(statusLocal));

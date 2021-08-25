@@ -54,11 +54,13 @@
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <h4 class="text-center text-info"><fmt:message key="label.authorization"/></h4>
+                    <h4 class="text-center" style="color: darkblue">
+                        <fmt:message key="label.authorization"/></h4>
                     <form id="login-form" class="form" method="post" action="login">
                         <div class="form-row">
                             <div class="col-12">
-                                <label for="username" class="text-info"><fmt:message key="label.login"/>:</label><br>
+                                <label for="username" style="font-weight: 600; font-size: 18px; color: darkblue">
+                                    <fmt:message key="label.login"/>:</label><br>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1"><i
@@ -70,7 +72,8 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <label for="password" class="text-info"><fmt:message key="label.password"/>:</label><br>
+                                <label for="password" style="font-weight: 600; font-size: 18px; color: darkblue">
+                                    <fmt:message key="label.password"/>:</label><br>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon2"><i
@@ -87,17 +90,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <%--<div class="col-6">--%>
-                            <%--<div class="form-group form-check text-left">--%>
-                            <%--<input type="checkbox" name="remember" class="form-check-input" id="remember_me" />--%>
-                            <%--<label class="form-check-label" for="remember_me">Remember me</label>--%>
-                            <%--</div>--%>
-                            <%--</div>--%>
                             <div class="col-sm-12 pt-3 text-right">
-                                <p><a href="registration"><fmt:message key="label.registration"/></a></p>
+                                <p><a href="registration">
+                                    <fmt:message key="label.registration"/></a></p>
                             </div>
                             <div class="col-12">
-                                <p style="color: red">${Error}</p>
+                                <p style="font-weight: 600; font-size: 18px; color: red">${error}</p>
                                 <button class="btn btn-primary" type="submit" name="signin"><fmt:message
                                         key="label.login"/></button>
                             </div>

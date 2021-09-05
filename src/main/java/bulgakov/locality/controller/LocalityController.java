@@ -13,6 +13,7 @@ import bulgakov.locality.util.ChooseResources;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@SessionAttributes(value = {"lang", "userSession"})
+@SessionAttributes(value = {"lang"})
 @RequiredArgsConstructor
 public class LocalityController {
 
@@ -36,7 +37,7 @@ public class LocalityController {
     public ModelAndView getLocality(@RequestParam(name = "nameChairmen", required = false) String nameChairmen,
                                     @RequestParam(name = "confData", required = false) String nameParam,
                                     @RequestParam(defaultValue = "1") int page,
-                                    @ModelAttribute("userSession") String userSession,
+                                    Authentication auth,
                                     @ModelAttribute("lang") String lang) {
         ModelAndView modelAndView = new ModelAndView();
         if (StringUtils.isNotBlank(nameChairmen)) {
@@ -47,7 +48,7 @@ public class LocalityController {
         if (StringUtils.isNotBlank(chairmenName)) {
             user = userService.getByUsername(chairmenName);
         } else {
-            user = userService.getByUsername(userSession);
+            user = userService.getByUsername(auth.getName());
         }
         Page<Locality> localityServiceLocalities = localityService.getLocalities(user.getId(), page, pageSize);
         List<Locality> localities = localityServiceLocalities.getContent();
@@ -57,7 +58,7 @@ public class LocalityController {
         if (StringUtils.isNotBlank(nameParam)) {
             modelAndView.addObject("confirmData", CheckConfirmData.getAttributeParam(nameParam, lang));
         }
-        modelAndView.addObject("isChairmen", CheckChairmen.isChairmen(userSession));
+        modelAndView.addObject("isChairmen", CheckChairmen.isChairmen(auth.getName()));
         modelAndView.addObject("localities", localities);
         modelAndView.addObject("nameChairmen", nameChairmen);
         modelAndView.setViewName("locality");
@@ -65,9 +66,9 @@ public class LocalityController {
     }
 
     @GetMapping("/create/locality")
-    public ModelAndView getCreateInfrastructure(@ModelAttribute(name = "userSession") String userSession) {
+    public ModelAndView getCreateInfrastructure(Authentication auth) {
         ModelAndView modelAndView = new ModelAndView();
-        chairmenName = userSession;
+        chairmenName = auth.getName();
         statusLocalities = statusLocalityService.getAll();
         modelAndView.addObject("nameChairmen", chairmenName);
         modelAndView.addObject("locality", new Locality());
@@ -99,11 +100,11 @@ public class LocalityController {
     }
 
     @GetMapping("/edit/locality")
-    public ModelAndView getEditLocality(@ModelAttribute(name = "userSession") String userSession,
+    public ModelAndView getEditLocality(Authentication auth,
                                         @RequestParam(name = "localityID") Integer localID) {
         ModelAndView modelAndView = new ModelAndView();
         localityID = localID;
-        chairmenName = userSession;
+        chairmenName = auth.getName();
         statusLocalities = statusLocalityService.getAll();
         Locality locality = localityService.getById(localID);
         modelAndView.addObject("locality", locality);
@@ -139,10 +140,10 @@ public class LocalityController {
 
     @GetMapping("/delete/locality")
     public ModelAndView deleteLocality(@RequestParam(name = "localityID") Integer localId,
-                                       @ModelAttribute("userSession") String userSession) {
+                                       Authentication auth) {
         ModelAndView modelAndView = new ModelAndView();
         localityService.delete(localId);
-        modelAndView.setViewName("redirect:/locality?chairmenName=" + userSession + "&confData=deleted");
+        modelAndView.setViewName("redirect:/locality?chairmenName=" + auth.getName() + "&confData=deleted");
         return modelAndView;
     }
 }

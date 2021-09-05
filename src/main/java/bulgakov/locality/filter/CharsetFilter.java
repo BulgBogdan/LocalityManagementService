@@ -1,26 +1,21 @@
 package bulgakov.locality.filter;
 
-import org.springframework.stereotype.Component;
+import org.springframework.web.filter.GenericFilterBean;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@Component
-public class CharsetFilter implements Filter {
-
-    private String encoding;
-
-    public void init(FilterConfig config) throws ServletException {
-        encoding = config.getInitParameter("requestEncoding");
-        if (encoding == null) encoding = "UTF-8";
-    }
+public class CharsetFilter extends GenericFilterBean {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain next)
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         if (request.getCharacterEncoding() == null) {
-            request.setCharacterEncoding(encoding);
+            request.setCharacterEncoding("UTF-8");
         }
         if (req.getParameter("sessionLocale") != null) {
             req.getSession().setAttribute("lang", req.getParameter("sessionLocale"));
@@ -31,6 +26,4 @@ public class CharsetFilter implements Filter {
         next.doFilter(request, response);
     }
 
-    public void destroy() {
-    }
 }

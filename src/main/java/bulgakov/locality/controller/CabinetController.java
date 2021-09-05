@@ -5,6 +5,7 @@ import bulgakov.locality.service.UserService;
 import bulgakov.locality.util.ChooseResources;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,16 +14,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@SessionAttributes(value = {"lang", "userSession"})
+@SessionAttributes(value = {"lang"})
 @RequiredArgsConstructor
 public class CabinetController {
 
     private final UserService userService;
 
     @GetMapping("/cabinet")
-    public ModelAndView getCabinet(@ModelAttribute("userSession") String userSession) {
+    public ModelAndView getCabinet(Authentication auth) {
         ModelAndView modelAndView = new ModelAndView();
-        User user = userService.getByUsername(userSession);
+        User user = userService.getByUsername(auth.getName());
         modelAndView.addObject("user", user);
         if (user.getRole().getId() == 1) {
             modelAndView.addObject("correctUsers", true);

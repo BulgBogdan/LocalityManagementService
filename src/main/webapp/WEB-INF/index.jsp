@@ -33,12 +33,12 @@
 <br>
 <div class="container">
     <div class="text-center">
-        <a class="btn btn-primary btn-xs pull-right" href="/login?sessionLocale=en"><fmt:message
+        <a class="btn btn-primary btn-xs pull-right" href="/home?sessionLocale=en"><fmt:message
                 key="label.lang.en"/></a>
     </div>
     <br>
     <div class="text-center">
-        <a class="btn btn-primary btn-xs pull-right" href="/login?sessionLocale=ru"><fmt:message
+        <a class="btn btn-primary btn-xs pull-right" href="/home?sessionLocale=ru"><fmt:message
                 key="label.lang.ru"/></a>
     </div>
 </div>

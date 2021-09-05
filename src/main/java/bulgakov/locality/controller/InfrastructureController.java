@@ -10,6 +10,7 @@ import bulgakov.locality.util.CheckField;
 import bulgakov.locality.util.ChooseResources;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@SessionAttributes(value = {"lang", "userSession"})
+@SessionAttributes(value = {"lang"})
 @RequiredArgsConstructor
 public class InfrastructureController {
 
@@ -30,7 +31,7 @@ public class InfrastructureController {
     @GetMapping("/infrastructure")
     public ModelAndView getInfrastructure(@RequestParam(name = "cityName") String cityName,
                                           @RequestParam(name = "confData", required = false) String nameParam,
-                                          @ModelAttribute("userSession") String userSession,
+                                          Authentication auth,
                                           @ModelAttribute("lang") String lang) {
         ModelAndView modelAndView = new ModelAndView();
         List<Infrastructure> infrastructures = localityService.getByCityName(cityName).getInfrastructures();
@@ -39,7 +40,7 @@ public class InfrastructureController {
         }
         modelAndView.addObject("cityName", cityName);
         modelAndView.addObject("infrastructures", infrastructures);
-        modelAndView.addObject("isChairmen", CheckChairmen.isChairmen(userSession));
+        modelAndView.addObject("isChairmen", CheckChairmen.isChairmen(auth.getName()));
         modelAndView.setViewName("infrastructure");
         return modelAndView;
     }

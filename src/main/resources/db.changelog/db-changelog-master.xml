@@ -20,11 +20,11 @@
     <changeSet author="bogdan" id="1630775575">
         <sql>
             insert into locality_management.role (role)
-            values ('admin');
+            values ('ADMIN');
             insert into locality_management.role (role)
-            values ('user');
+            values ('USER');
             insert into locality_management.role (role)
-            values ('chairmen');
+            values ('CHAIRMEN');
         </sql>
     </changeSet>
 
@@ -35,7 +35,7 @@
             (
             `id_user` INT NOT NULL AUTO_INCREMENT,
             `username` VARCHAR(45) NOT NULL,
-            `password` VARCHAR(45) NOT NULL,
+            `password` VARCHAR(255) NOT NULL,
             `first_name` VARCHAR(45) NOT NULL,
             `last_name` VARCHAR(45) NOT NULL,
             `role_id` INT NOT NULL,
@@ -49,16 +49,18 @@
         </sql>
     </changeSet>
 
+    <!--passwords-->
+    <!--admin = admin1-->
+    <!--user = user1-->
+    <!--chairmen = chairmen-->
     <changeSet author="bogdan" id="1630775577">
         <sql>
             insert into locality_management.user (username, password, first_name, last_name, role_id)
-            values ('admin', 'admin', 'admin', 'admin', 1);
+            values ('admin', '$2a$10$tENP2xX98u7P9oYhXTbYAuvRxppKxuCOLwMyNhJ6b0C2IszWtByLK', 'admin', 'admin', 1);
             insert into locality_management.user (username, password, first_name, last_name, role_id)
-            values ('user', 'user', 'ivan', 'ivanov', 2);
+            values ('user', '$2a$10$juTILDKWiyru482x.xEiaOGRoKIbdcLeFDWWx7Hm8xQmoJKM./VD2', 'ivan', 'ivanov', 2);
             insert into locality_management.user (username, password, first_name, last_name, role_id)
-            values ('chairmen', 'chairmen', 'ivan', 'ivanov', 3);
-            insert into locality_management.user (username, password, first_name, last_name, role_id)
-            values ('chairmen2', 'chairmen2', 'petr', 'petrov', 3);
+            values ('chairmen', '$2a$10$pwBWxKBnh4Av1wv0f/ODpeTxjFwxs4tYulgJySv8q5tCVj6Rc65n.', 'ivan', 'ivanov', 3);
         </sql>
     </changeSet>
 

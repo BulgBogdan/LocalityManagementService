@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ page isELIgnored="false" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -71,15 +72,16 @@
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
                     <h3 class="text-center" style="color: darkblue"><fmt:message key="label.registration"/></h3>
-                    <form method="POST" action="registration">
+                    <form:form method="POST" action="registration">
                         <div class="form-group">
-                            <label for="login" style="font-weight: 600; font-size: 18px; color: darkblue">
+                            <label for="username" style="font-weight: 600; font-size: 18px; color: darkblue">
                                 <fmt:message key="label.login"/>:</label><br>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="login" id="login" class="form-control" value="${login}"
+                                <input type="text" name="username" id="username" class="form-control"
+                                       value="${username}"
                                        aria-label="Username" aria-describedby="basic-addon1"/>
                             </div>
                             <p style="font-weight: 600; font-size: 18px; color: red">${loginError}</p>
@@ -156,7 +158,7 @@
                             <a href="/login">
                                 <fmt:message key="label.authorization"/></a>
                         </div>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>

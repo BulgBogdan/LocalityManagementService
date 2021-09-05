@@ -95,7 +95,10 @@
                                     <fmt:message key="label.registration"/></a></p>
                             </div>
                             <div class="col-12">
-                                <p style="font-weight: 600; font-size: 18px; color: red">${error}</p>
+                                <c:if test="${not empty param.error}">
+                                    <div class="alert alert-danger"><fmt:message key="label.errorLoginPass"/></div>
+                                </c:if>
+                                <%--<p style="font-weight: 600; font-size: 18px; color: red">${error}</p>--%>
                                 <button class="btn btn-primary" type="submit" name="signin"><fmt:message
                                         key="label.login"/></button>
                             </div>

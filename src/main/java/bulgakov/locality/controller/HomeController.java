@@ -8,6 +8,7 @@ import bulgakov.locality.service.UserService;
 import bulgakov.locality.util.CheckChairmen;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@SessionAttributes(value = {"lang", "userSession"})
+@SessionAttributes(value = {"lang"})
 @RequiredArgsConstructor
 public class HomeController {
 
@@ -29,15 +30,15 @@ public class HomeController {
     private final RoleService roleService;
 
     @GetMapping("/home")
-    public ModelAndView getHome(@ModelAttribute("userSession") String userSession,
-                                @ModelAttribute("lang") String lang,
-                                @ModelAttribute("chairmen") String chairmen) {
+    public ModelAndView getHome(@ModelAttribute("lang") String lang,
+                                @ModelAttribute("chairmen") String chairmen,
+                                Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("selectLang", lang);
-        if (CheckChairmen.isChairmen(userSession)) {
+        if (CheckChairmen.isChairmen(authentication.getName())) {
             modelAndView.addObject("isChairmen", true);
-            modelAndView.addObject("cities", getCities(userSession));
-            modelAndView.addObject("nameChairmen", userSession);
+            modelAndView.addObject("cities", getCities(authentication.getName()));
+            modelAndView.addObject("nameChairmen", authentication.getName());
         } else {
             modelAndView.addObject("chairmens", getChairmens());
             if (ObjectUtils.isEmpty(chairmen)) {
@@ -51,11 +52,11 @@ public class HomeController {
     @PostMapping("/home")
     public ModelAndView postHome(@ModelAttribute("city") String city,
                                  @ModelAttribute("chairmen") String chairmen,
-                                 @ModelAttribute("userSession") String userSession,
+                                 Authentication authentication,
                                  @ModelAttribute("lang") String lang) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("selectLang", lang);
-        modelAndView.addObject("isChairmen", CheckChairmen.isChairmen(userSession));
+        modelAndView.addObject("isChairmen", CheckChairmen.isChairmen(authentication.getName()));
         if (StringUtils.isNotBlank(city)) {
             modelAndView.addObject("nameCity", city);
         } else {
